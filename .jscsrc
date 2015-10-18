@@ -20,7 +20,8 @@
     },
     "excludeFiles": [
         ".git/**",
-        "node_modules/**"
+        "node_modules/**",
+        "coverage/**"
     ],
     "fileExtensions": [".js"]
 }

@@ -4,10 +4,9 @@
   "description": "Render PostHTMLTree to HTML/XML",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && mocha",
+    "test": "npm run lint && npm run coverage",
     "lint": "jshint . && jscs . -v",
-    "coverage": "istanbul cover --report text --report html --report lcov node_modules/mocha/bin/_mocha -- -R dot",
-    "coveralls": "npm run coverage && cat ./coverage/lcov.info | coveralls"
+    "coverage": "istanbul cover --report text --report html --report lcov node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",

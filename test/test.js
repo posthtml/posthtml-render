@@ -26,7 +26,48 @@ describe('PostHTML-Render test', function() {
     });
 
     it('content test', function() {
-        expect(render({ content: [{ content: [{ content: ['Test', {}] }] }] })).to.eql('<div><div><div>Test<div></div></div></div></div>');
+        expect(render({ content: [{ content: [{ content: ['Test', {}] }] }] }))
+                .to.eql('<div><div><div>Test<div></div></div></div></div>');
+    });
+
+    describe('attrs', function() {
+        it('key', function() {
+            expect(render({ attrs: { id: 'header' } })).to.eql('<div id="header"></div>');
+        });
+
+        it('multi attrs', function() {
+            expect(render({ attrs: { id: 'header', style: 'color:red;', 'data-id': 'header' } }))
+                .to.eql('<div id="header" style="color:red;" data-id="header"></div>');
+        });
+
+        it('boolean', function() {
+            expect(render({ attrs: { disabled: true } })).to.eql('<div disabled></div>');
+        });
+    });
+
+    describe('options', function() {
+        describe('singleTag', function() {
+            it('default', function() {
+                expect(render({ tag: 'img' })).to.eql('<img>');
+            });
+            it('set in options', function() {
+                expect(render({ tag: 'rect' }, { singleTags: ['rect'] })).to.eql('<rect>');
+            });
+        });
+
+        describe('closingSingleTag', function() {
+            it('default', function() {
+                expect(render({ tag: 'br' }, { closingSingleTag: 'default' })).to.eql('<br>');
+            });
+
+            it('slash', function() {
+                expect(render({ tag: 'br' }, { closingSingleTag: 'slash' })).to.eql('<br />');
+            });
+
+            it('tag', function() {
+                expect(render({ tag: 'br' }, { closingSingleTag: 'tag' })).to.eql('<br></br>');
+            });
+        });
     });
 
 });

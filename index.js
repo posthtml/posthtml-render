@@ -71,7 +71,7 @@ function render(tree, options) {
         function attrs(obj) {
             var attr = '';
             for (var key in obj) {
-                attr += key + (obj[key] && typeof obj[key] !== 'boolean')? '="' + obj[key] + '"': '';
+                attr += ' ' + key + ((obj[key] && typeof obj[key] !== 'boolean')? '="' + obj[key] + '"': '');
             }
             return attr;
         }
@@ -83,7 +83,7 @@ function traverse(tree, cb) {
         for (var i = 0, len = tree.length; i < len; i++) {
             tree[i] = traverse(cb(tree[i]), cb);
         }
-    } else if (typeof tree === 'object' && tree.hasOwnProperty('content'))  traverse(tree.content, cb);
+    } else if (typeof tree === 'object' && tree.hasOwnProperty('content')) traverse(tree.content, cb);
     return tree;
 }
 
