@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Render PostHTMLTree to HTML/XML",
   "main": "lib/posthtml-render.js",
   "scripts": {
