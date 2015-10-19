@@ -4,5 +4,11 @@
     "maxlen": 120,
     "undef": true,
     "unused": true,
-    "node": true
+    "node": true,
+    "browser": true,
+    "predef": [
+        "global",
+        "define",
+        "modules"
+    ]
 }

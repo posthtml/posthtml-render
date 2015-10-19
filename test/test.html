@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <script type="text/javascript" src="../posthtml-render.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function() {
+            document.body.innerHTML = postHTMLRender({ tag: 'h1', attrs: { id: 'header', style: 'color:red;', 'data-id': 'header' }, content: 'test' });
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>
