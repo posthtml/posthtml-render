@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/voischev/posthtml-render.git"
+    "url": "git+https://github.com/posthtml/posthtml-render.git"
   },
   "keywords": [
     "posthtml",
@@ -23,9 +23,9 @@
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/voischev/posthtml-render/issues"
+    "url": "https://github.com/posthtml/posthtml-render/issues"
   },
-  "homepage": "https://github.com/voischev/posthtml-render#readme",
+  "homepage": "https://github.com/posthtml/posthtml-render#readme",
   "devDependencies": {
     "chai": "^3.3.0",
     "istanbul": "^0.4.0",
