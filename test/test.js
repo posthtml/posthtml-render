@@ -9,6 +9,20 @@ describe('PostHTML-Render test', function() {
         expect(render('Hello world!')).to.eql('Hello world!');
     });
 
+    it('string in content', function() {
+        expect(render({ content: 'Hello world!' })).to.eql('<div>Hello world!</div>');
+        expect(render({ content: ['Hello world!'] })).to.eql('<div>Hello world!</div>');
+    });
+
+    it('number', function() {
+        expect(render(555)).to.eql('555');
+    });
+
+    it('number in content', function() {
+        expect(render({ content: 555 })).to.eql('<div>555</div>');
+        expect(render({ content: [555] })).to.eql('<div>555</div>');
+    });
+
     it('string node', function() {
         expect(render(['Hello world!'])).to.eql('Hello world!');
     });
@@ -17,8 +31,14 @@ describe('PostHTML-Render test', function() {
         expect(render()).to.eql('');
     });
 
-    it('tag false', function() {
+    it('tag false return string', function() {
+        expect(render({ tag: false, content: 'Test' })).to.eql('Test');
         expect(render({ tag: false, content: ['Test'] })).to.eql('Test');
+    });
+
+    it('tag false return number', function() {
+        expect(render({ tag: false, content: 555 })).to.eql('555');
+        expect(render({ tag: false, content: [555] })).to.eql('555');
     });
 
     it('tag empty', function() {
