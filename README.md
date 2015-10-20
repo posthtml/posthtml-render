@@ -21,13 +21,13 @@ __In NodeJS__
 
 ```js
 var render = require('posthtml-render');
-var titleObj = { tag: 'h1' };
+var listObj = { tag: 'ul' };
 
-titleObj.attrs = { class: 'heading' };
-titleObj.content = ['Title'];
+listObj.attrs = { class: 'list' };
+listObj.content = ['one', 'two', 'three'].map(function(text) { return { tag: 'li', content: text }});
 
-clonsole.log(render(titleObj/*, options */));
-// <h1 class="heading">Title</h1>
+clonsole.log(render(listObj/*, options */));
+// <ul class="list"><li>one</li><li>two</li><li>three</li></ul>
 ```
 
 __In Browser__
