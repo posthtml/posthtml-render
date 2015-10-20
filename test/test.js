@@ -2,8 +2,16 @@ var render = require('../lib/posthtml-render.js');
 var describe = require('mocha').describe;
 var it = require('mocha').it;
 var expect = require('chai').expect;
+var path = require('path');
+var fs = require('fs');
+var html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8').toString();
+var tree = require('./templates/parser.js');
 
 describe('PostHTML-Render test', function() {
+
+    it('tree to html', function() {
+        expect(html).to.eql(render(tree));
+    });
 
     it('string', function() {
         expect(render('Hello world!')).to.eql('Hello world!');
@@ -68,10 +76,25 @@ describe('PostHTML-Render test', function() {
     describe('options', function() {
         describe('singleTag', function() {
             it('default', function() {
-                expect(render({ tag: 'img' })).to.eql('<img>');
+
+                var SINGLE_TAGS = [
+                    'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen',
+                    'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
+                ];
+
+                expect(render(SINGLE_TAGS.map(function(tag) {
+                    return { tag: tag };
+                }))).to.eql(SINGLE_TAGS.map(function(tag) {
+                    return '<' + tag + '>';
+                }).join(''));
             });
+
             it('set in options', function() {
                 expect(render({ tag: 'rect' }, { singleTags: ['rect'] })).to.eql('<rect>');
+            });
+
+            it('safe attrs', function() {
+                expect(render({ tag: 'rect', attrs: { id: 'id' } }, { singleTags: ['rect'] })).to.eql('<rect id="id">');
             });
         });
 
