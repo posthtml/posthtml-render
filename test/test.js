@@ -68,8 +68,13 @@ describe('PostHTML-Render test', function() {
                 .to.eql('<div id="header" style="color:red;" data-id="header"></div>');
         });
 
-        it('boolean', function() {
+        it('true', function() {
             expect(render({ attrs: { disabled: true } })).to.eql('<div disabled></div>');
+        });
+
+        it('false', function() {
+            expect(render({ attrs: { disabled: false } })).to.eql('<div></div>');
+            expect(render({ attrs: { disabled: '' } })).to.eql('<div></div>');
         });
     });
 
