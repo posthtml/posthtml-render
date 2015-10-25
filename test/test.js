@@ -74,7 +74,14 @@ describe('PostHTML-Render test', function() {
 
         it('false', function() {
             expect(render({ attrs: { disabled: false } })).to.eql('<div></div>');
-            expect(render({ attrs: { disabled: '' } })).to.eql('<div></div>');
+        });
+
+        it('empty attrs', function() {
+            expect(render({ attrs: { disabled: '' } })).to.eql('<div disabled></div>');
+        });
+
+        it('number attrs', function() {
+            expect(render({ attrs: { val: 5 } })).to.eql('<div val="5"></div>');
         });
     });
 
