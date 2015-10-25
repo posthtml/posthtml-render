@@ -7,7 +7,9 @@
     "test": "npm run build && npm run lint && npm run coverage",
     "lint": "jshint lib/ && jscs lib/ -v",
     "coverage": "istanbul cover --report text --report html --report lcov node_modules/mocha/bin/_mocha",
-    "build": "uglifyjs lib/posthtml-render.js -c \"evaluate=false\" -o posthtml-render.min.js"
+    "build": "uglifyjs lib/posthtml-render.js -c \"evaluate=false\" -o posthtml-render.min.js",
+    "preversion": "npm test",
+    "postversion": "git push && git push --tags && rm -rf coverage"
   },
   "repository": {
     "type": "git",
