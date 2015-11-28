@@ -31,6 +31,16 @@ describe('PostHTML-Render test', function() {
         expect(render({ content: [555] })).to.eql('<div>555</div>');
     });
 
+    it('node array in content', function () {
+      expect(render({content: [
+        [
+          555,
+          {tag: 'div', content: 666},
+          777
+        ]
+      ]})).to.eql('<div>555<div>666</div>777</div>')
+    })
+
     it('string node', function() {
         expect(render(['Hello world!'])).to.eql('Hello world!');
     });
