@@ -31,15 +31,15 @@ describe('PostHTML-Render test', function() {
         expect(render({ content: [555] })).to.eql('<div>555</div>');
     });
 
-    it('node array in content', function () {
-      expect(render({content: [
+    it('node array in content', function() {
+      expect(render({ content: [
         [
           555,
-          {tag: 'div', content: 666},
+          { tag: 'div', content: 666 },
           777
         ]
-      ]})).to.eql('<div>555<div>666</div>777</div>')
-    })
+      ]})).to.eql('<div>555<div>666</div>777</div>');
+    });
 
     it('string node', function() {
         expect(render(['Hello world!'])).to.eql('Hello world!');
@@ -65,12 +65,18 @@ describe('PostHTML-Render test', function() {
 
     it('content test', function() {
         expect(render({ content: [{ content: [{ content: ['Test', {}] }] }] }))
-                .to.eql('<div><div><div>Test<div></div></div></div></div>');
+            .to.eql('<div><div><div>Test<div></div></div></div></div>');
     });
 
     describe('attrs', function() {
         it('key', function() {
-            expect(render({ attrs: { id: 'header' } })).to.eql('<div id="header"></div>');
+            expect(render({ attrs: { id: 'header' } }))
+                .to.eql('<div id="header"></div>');
+        });
+
+        it('empty key', function() {
+            expect(render({ attrs: { alt: '' } }))
+                .to.eql('<div alt=""></div>');
         });
 
         it('multi attrs', function() {
@@ -79,15 +85,13 @@ describe('PostHTML-Render test', function() {
         });
 
         it('true', function() {
-            expect(render({ attrs: { disabled: true } })).to.eql('<div disabled></div>');
+            expect(render({ attrs: { disabled: true } }))
+                .to.eql('<div disabled></div>');
         });
 
         it('false', function() {
-            expect(render({ attrs: { disabled: false } })).to.eql('<div></div>');
-        });
-
-        it('empty attrs', function() {
-            expect(render({ attrs: { disabled: '' } })).to.eql('<div disabled></div>');
+            expect(render({ attrs: { disabled: false } }))
+                .to.eql('<div></div>');
         });
 
         it('number attrs', function() {
