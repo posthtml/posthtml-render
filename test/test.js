@@ -68,6 +68,25 @@ describe('PostHTML-Render test', function() {
             .to.eql('<div><div><div>Test<div></div></div></div></div>');
     });
 
+    it('tree immutable', function() {
+        var t = [{
+            tag: 'div',
+            content: [
+                {
+                    tag: false,
+                    content: [
+                        { tag: 'div' },
+                        { tag: 'span', content: ['Text'] }
+                    ]
+                }
+            ]
+        }];
+        var t1 = JSON.stringify(t);
+        render(t);
+        var t2 = JSON.stringify(t);
+        expect(t1).to.eql(t2);
+    });
+
     describe('attrs', function() {
         it('key', function() {
             expect(render({ attrs: { id: 'header' } }))
