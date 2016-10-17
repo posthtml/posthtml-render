@@ -26,7 +26,7 @@ var listObj = { tag: 'ul' };
 listObj.attrs = { class: 'list' };
 listObj.content = ['one', 'two', 'three'].map(function(text) { return { tag: 'li', content: text }});
 
-clonsole.log(render(listObj/*, options */));
+console.log(render(listObj/*, options */));
 // <ul class="list"><li>one</li><li>two</li><li>three</li></ul>
 ```
 
