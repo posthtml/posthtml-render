@@ -3,6 +3,7 @@
   "version": "1.0.6",
   "description": "Render PostHTMLTree to HTML/XML",
   "main": "lib/posthtml-render.js",
+  "types": "lib/posthtml-render.d.ts",
   "scripts": {
     "test": "npm run build && npm run lint && npm run coverage",
     "lint": "jshint lib/ && jscs lib/ -v",
