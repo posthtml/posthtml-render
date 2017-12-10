@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/posthtml/posthtml-render/badge.svg?branch=master)](https://coveralls.io/r/posthtml/posthtml-render?branch=master)
 
 Render [PostHTML](http://github.com/posthtml/posthtml) Tree to HTML/XML.
-More info for [PostHTMLTree](https://github.com/posthtml/posthtml#posthtml-json-tree-example)
+More info for [PostHTMLTree](https://github.com/posthtml/posthtml-parser#posthtml-ast-format)
 
 ## Install
 
