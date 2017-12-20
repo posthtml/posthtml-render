@@ -213,7 +213,7 @@ describe('PostHTML Render', function () {
         ).join(''))
       })
 
-      it('Custom (Options)', function () {
+      it('Custom {String}', function () {
         var options = { singleTags: [ 'rect' ] }
 
         var fixture = { tag: 'rect' }
@@ -221,6 +221,15 @@ describe('PostHTML Render', function () {
 
         expect(render(fixture, options)).to.eql(expected)
       })
+
+      it('Custom {RegExp}', function() {
+        var options = { singleTags: [ /^%.*%$/ ] }
+
+        var fixture = { tag: '%=title%' }
+        var expected = '<%=title%>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      });
 
       it('Attrs', function () {
         var options = { singleTags: [ 'rect' ] }

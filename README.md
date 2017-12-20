@@ -85,8 +85,8 @@ const html = render(tree, options)
 
 |Name|Type|Default|Description|
 |:--:|:--:|:-----:|:----------|
-|**[`singleTags`](#singletags)**|`{Array}`|`[]`|Specify custom single tags (self closing)|
-|**[`closingSingleTag`](#closingSingleTag)**|`{String\|RegExp}`|[`>`](#default)|Specify the single tag closing format|
+|**[`singleTags`](#singletags)**|`{Array<String\|RegExp>}`|`[]`|Specify custom single tags (self closing)|
+|**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
 
 ### `singleTags`
 
@@ -110,7 +110,7 @@ const html = render(tree, options)
 
 #### `{RegExp}`
 
-```
+```js
 const render = require('posthtml-render')
 
 const tree = [ { tag: '%=title%' } ]

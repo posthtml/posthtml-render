@@ -46,7 +46,7 @@ Options
 
 | Name | Type | Description |
 | --- | --- | --- |
-| singleTags | <code>Array</code> | Custom single tags (selfClosing) |
+| singleTags | <code>Array.&lt;(String\|RegExp)&gt;</code> | Custom single tags (selfClosing) |
 | closingSingleTag | <code>String</code> | Closing format for single tag Formats: ``` tag: `<br></br>` ```, slash: `<br />` ```, ```default: `<br>` ``` |
 
 <a name="render..html"></a>

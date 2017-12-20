@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Renders PostHTML Tree to HTML/XML",
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
@@ -12,10 +12,10 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "jsdoc-to-markdown": "^3.0.0",
-    "mocha": "^4.0.0",
-    "nyc": "^11.0.0",
-    "rollup": "^0.52.0",
-    "rollup-plugin-commonjs": "^8.2.6",
+    "mocha": "^3.0.0",
+    "nyc": "^10.0.0",
+    "rollup": "^0.54.0",
+    "rollup-plugin-commonjs": "^8.0.0",
     "rollup-plugin-uglify": "^2.0.0",
     "standard": "^10.0.0",
     "standard-version": "^4.0.0",
