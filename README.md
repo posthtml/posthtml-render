@@ -53,11 +53,11 @@ __In Browser__
 ## Options
 
 ### singleTags
-Array tags for extend default list single tags
+Array tags for extend default list single tags. Values can be strings or regular expressions.
 
 __Default__: `[]`
 
-*Options* `{ singleTags: ['rect', 'custom'] }`
+*Options* `{ singleTags: ['rect', 'custom', /^%.*%$/] }`
 
 ```html
 ...
@@ -65,6 +65,7 @@ __Default__: `[]`
     ...
     <rect>
     <custom>
+    <%=title%>
 </div>
 ```
 

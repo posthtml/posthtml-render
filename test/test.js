@@ -138,6 +138,10 @@ describe('PostHTML-Render test', function() {
                 expect(render({ tag: 'rect' }, { singleTags: ['rect'] })).to.eql('<rect>');
             });
 
+            it('use regexp', function() {
+                expect(render({ tag: '%=title%' }, { singleTags: [/^%.*%$/] })).to.eql('<%=title%>');
+            });
+
             it('safe attrs', function() {
                 expect(render({ tag: 'rect', attrs: { id: 'id' } }, { singleTags: ['rect'] })).to.eql('<rect id="id">');
             });
