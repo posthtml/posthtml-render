@@ -1,99 +1,186 @@
-# posthtml-render
-[![npm version](https://badge.fury.io/js/posthtml-render.svg)](http://badge.fury.io/js/posthtml-render)
-[![Build Status](https://travis-ci.org/posthtml/posthtml-render.svg?branch=master)](https://travis-ci.org/posthtml/posthtml-render?branch=master)
-[![Coverage Status](https://coveralls.io/repos/posthtml/posthtml-render/badge.svg?branch=master)](https://coveralls.io/r/posthtml/posthtml-render?branch=master)
+[![npm][npm]][npm-url]
+[![node][node]][node-url]
+[![deps][deps]][deps-url]
+[![tests][tests]][tests-url]
+[![coverage][cover]][cover-url]
+[![chat][chat]][chat-url]
 
-Render [PostHTML](http://github.com/posthtml/posthtml) Tree to HTML/XML.
-More info for [PostHTMLTree](https://github.com/posthtml/posthtml#posthtml-json-tree-example)
+<div align="center">
+  <a href="https://github.com/posthtml/posthtml">
+    <img width="200" height="200" alt="PostHTML"
+      src="http://posthtml.github.io/posthtml/logo.svg">
+  </a>
+  <h1>PostHTML Render</h1>
+  <p>Renders a PostHTML Tree to HTML/XML</p>
+</div>
 
-## Install
+<h2 align="center">Install</h2>
 
-[NPM](http://npmjs.com) install
+```bash
+npm i -D posthtml-render
 ```
-$ npm install posthtml-render
-```
-is also available for [bower](http://bower.io) and as an AMD, CommonJS, and globals module, uncompressed and compressed.
 
+> ℹ️ This module is also available for [bower](http://bower.io) and as an AMD, CommonJS and IIFE (global) module, uncompressed and compressed
 
-## Usage
+<h2 align="center">Usage</h2>
 
-__In NodeJS__
+### `NodeJS`
 
 ```js
-var render = require('posthtml-render');
-var listObj = { tag: 'ul' };
+const render = require('posthtml-render')
 
-listObj.attrs = { class: 'list' };
-listObj.content = ['one', 'two', 'three'].map(function(text) { return { tag: 'li', content: text }});
+const tree = []
 
-console.log(render(listObj/*, options */));
-// <ul class="list"><li>one</li><li>two</li><li>three</li></ul>
+const node = {}
+
+node.tag = 'ul'
+node.attrs = { class: 'list' }
+node.content = [
+ 'one',
+ 'two',
+ 'three'
+].map((content) => ({ tag: 'li', content }))
+
+tree.push(node)
+
+const html = render(tree, options)
+
 ```
 
-__In Browser__
+```html
+<ul class="list">
+  <li>one</li>
+  <li>two</li>
+  <li>three</li>
+</ul>
+```
+
+### `🌐 Browser`
 
 ```html
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Title</title>
-    <script type="text/javascript" src="./bower_components/posthtml-render/posthtml-render.min.js"></script>
-    <script type="text/javascript">
-        window.onload = function() {
-            document.body.innerHTML = postHTMLRender({ tag: 'h1', attrs: { style: 'color: red;' }, content: ['Title'] });
-        };
-    </script>
-</head>
-<body>
+  <title>Title</title>
+  <script src="./node_modules/posthtml-render/lib/browser.min.js"></script>
+  <script >
+    const tree = {
+      tag: 'h1',
+      attrs: {
+        style: 'color: red;'
+      },
+      content: [ 'Title' ]
+    }
 
-</body>
+    window.onload = function () {
+      document.body.innerHTML = render(tree)
+    }
+  </script>
+</head>
+<body></body>
 </html>
 ```
 
-## Options
+<h2 align="center">Options</h2>
 
-### singleTags
-Array tags for extend default list single tags. Values can be strings or regular expressions.
+|Name|Type|Default|Description|
+|:--:|:--:|:-----:|:----------|
+|**[`singleTags`](#singletags)**|`{Array<String\|RegExp>}`|`[]`|Specify custom single tags (self closing)|
+|**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
 
-__Default__: `[]`
+### `singleTags`
 
-*Options* `{ singleTags: ['rect', 'custom', /^%.*%$/] }`
+Specify custom single tags (self closing)
 
-```html
-...
-<div>
-    ...
-    <rect>
-    <custom>
-    <%=title%>
-</div>
+### `{String}`
+
+```js
+const render = require('posthtml-render')
+
+const tree = [ { tag: 'name' } ]
+const options = { singleTags: [ 'name' ] }
+
+const html = render(tree, options)
 ```
 
-
-### closingSingleTag
-Option to specify version closing single tags.
-Accepts values: `default`, `slash`, `tag`.
-
-__Default__: `default`
-
-*Options* `{ closingSingleTag: 'default' }`
-
+**result.html**
 ```html
-<img>
+<name>
 ```
 
-*Options* `{ closingSingleTag: 'slash' }`
+#### `{RegExp}`
 
-```html
-<img />
+```js
+const render = require('posthtml-render')
+
+const tree = [ { tag: '%=title%' } ]
+const options = { singleTags: [ '/^%.*%$/' ] }
+
+const html = render(tree, options)
 ```
 
-*Options* `{ closingSingleTag: 'tag' }`
+**result.html**
+```html
+<%=title%>
+```
+
+### `closingSingleTag`
+
+Specify the single tag closing format
+
+#### `Formats`
+
+```js
+const render = require('posthtml-render')
+
+const tree = [ { tag: 'img' } ]
+```
+
+##### `'tag'`
+
+```js
+const html = render(tree, { closingSingleTag: 'tag' })
+```
+
+```html
+<custom></custom>
+```
+
+##### `'slash'`
+
+```js
+const html = render(tree, { closingSingleTag: 'tag' })
+```
+
+```html
+<custom />
+```
+
+##### `'default' (Default)`
+
+```js
+const html = render(tree)
+```
 
 ```html
 <img></img>
 ```
 
-## License
 
-[MIT](LICENSE)
+[npm]: https://img.shields.io/npm/v/posthtml-render.svg
+[npm-url]: https://npmjs.com/package/posthtml-render
+
+[node]: https://img.shields.io/node/v/posthtml-render.svg
+[node-url]: https://nodejs.org
+
+[deps]: https://david-dm.org/posthtml/posthtml-render.svg
+[deps-url]: https://david-dm.org/posthtml/posthtml-render
+
+[tests]: http://img.shields.io/travis/posthtml/posthtml-render.svg
+[tests-url]: https://travis-ci.org/posthtml/posthtml-render
+
+[cover]: https://coveralls.io/repos/github/posthtml/posthtml-render/badge.svg
+[cover-url]: https://coveralls.io/github/posthtml/posthtml-render
+
+[chat]: https://badges.gitter.im/posthtml/posthtml.svg
+[chat-url]: https://gitter.im/posthtml/posthtml
