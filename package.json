@@ -21,7 +21,7 @@
     "test": "nyc node_modules/mocha/bin/_mocha",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
     "clean": "rm -rf .nyc_output coverage",
-    "release": "npm run build && standard-version"
+    "release": "standard-version"
   },
   "keywords": [
     "posthtml",
