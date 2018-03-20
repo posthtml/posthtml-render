@@ -5,7 +5,6 @@
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
   "main": "lib/index.js",
-  "browser": "lib/browser.min.js",
   "files": [
     "lib"
   ],
