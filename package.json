@@ -5,7 +5,6 @@
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
   "main": "lib/index.js",
-  "browser": "lib/browser.min.js",
   "files": [
     "lib"
   ],
@@ -14,18 +13,13 @@
     "jsdoc-to-markdown": "^3.0.0",
     "mocha": "^3.0.0",
     "nyc": "^10.0.0",
-    "rollup": "^0.54.0",
-    "rollup-plugin-commonjs": "^8.0.0",
-    "rollup-plugin-uglify": "^2.0.0",
     "standard": "^10.0.0",
-    "standard-version": "^4.0.0",
-    "uglify-es": "^3.0.0"
+    "standard-version": "^4.0.0"
   },
   "scripts": {
     "lint": "standard --env mocha",
     "test": "nyc node_modules/mocha/bin/_mocha",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
-    "build": "rollup -c",
     "clean": "rm -rf .nyc_output coverage",
     "release": "npm run build && standard-version"
   },
