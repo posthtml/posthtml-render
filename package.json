@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Renders PostHTML Tree to HTML/XML",
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
@@ -20,8 +20,7 @@
     "lint": "standard --env mocha",
     "test": "nyc node_modules/mocha/bin/_mocha",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
-    "clean": "rm -rf .nyc_output coverage",
-    "release": "npm run build && standard-version"
+    "release": "standard-version"
   },
   "keywords": [
     "posthtml",
