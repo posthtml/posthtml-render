@@ -103,6 +103,17 @@ describe('PostHTML Render', function () {
 
       expect(render(fixture)).to.eql(expected)
     })
+
+    it('{String} (double quotes)', function () {
+      var fixture = {
+        attrs: {
+          onclick: 'alert("hello world")'
+        }
+      }
+      var expected = '<div onclick="alert(&quot;hello world&quot;)"></div>'
+
+      expect(render(fixture)).to.eql(expected)
+    })
   })
 
   describe('Content', function () {
