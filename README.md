@@ -149,7 +149,7 @@ const html = render(tree, { closingSingleTag: 'tag' })
 ##### `'slash'`
 
 ```js
-const html = render(tree, { closingSingleTag: 'tag' })
+const html = render(tree, { closingSingleTag: 'slash' })
 ```
 
 ```html
