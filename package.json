@@ -5,6 +5,9 @@
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
   "main": "lib/index.js",
+  "engines": {
+      "node": ">=6"
+  },
   "files": [
     "lib"
   ],
@@ -19,7 +22,7 @@
   },
   "scripts": {
     "lint": "standard --env mocha",
-    "test": "nyc mocha",
+    "test": "npm run lint && nyc mocha",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
     "release": "standard-version"
