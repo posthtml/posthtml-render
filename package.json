@@ -22,7 +22,7 @@
   },
   "scripts": {
     "lint": "standard --env mocha",
-    "test": "npm run lint && nyc mocha",
+    "test": "npm run lint && nyc mocha && npm run coverage",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
     "release": "standard-version"
