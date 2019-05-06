@@ -271,6 +271,15 @@ describe('PostHTML Render', function () {
         expect(render(fixture, options)).to.eql(expected)
       })
 
+      it('Slash with content', function () {
+        var options = { closingSingleTag: 'slash' }
+
+        var fixture = { tag: 'br', content: ['test'] }
+        var expected = '<br />test'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
       it('Default', function () {
         var options = { closingSingleTag: 'default' }
 
