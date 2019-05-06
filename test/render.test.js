@@ -217,11 +217,11 @@ describe('PostHTML Render', function () {
           SINGLE_TAGS.map(function (tag) {
             return { tag: tag }
           }
-        ))).to.eql(
+          ))).to.eql(
           SINGLE_TAGS.map(function (tag) {
             return '<' + tag + '>'
           }
-        ).join(''))
+          ).join(''))
       })
 
       it('Custom {String}', function () {
@@ -267,6 +267,15 @@ describe('PostHTML Render', function () {
 
         var fixture = { tag: 'br' }
         var expected = '<br />'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('Slash with content', function () {
+        var options = { closingSingleTag: 'slash' }
+
+        var fixture = { tag: 'br', content: ['test'] }
+        var expected = '<br />test'
 
         expect(render(fixture, options)).to.eql(expected)
       })

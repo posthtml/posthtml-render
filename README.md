@@ -171,7 +171,7 @@ const html = render(tree)
 [npm-url]: https://npmjs.com/package/posthtml-render
 
 [node]: https://img.shields.io/node/v/posthtml-render.svg
-[node-url]: https://nodejs.org
+[node-url]: 
 
 [deps]: https://david-dm.org/posthtml/posthtml-render.svg
 [deps-url]: https://david-dm.org/posthtml/posthtml-render
