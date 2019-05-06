@@ -10,6 +10,7 @@
   ],
   "devDependencies": {
     "chai": "^4.0.0",
+    "coveralls": "^3.0.3",
     "jsdoc-to-markdown": "^4.0.1",
     "mocha": "^6.1.4",
     "nyc": "^14.1.0",
@@ -18,7 +19,8 @@
   },
   "scripts": {
     "lint": "standard --env mocha",
-    "test": "nyc node_modules/mocha/bin/_mocha",
+    "test": "nyc mocha",
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "jsdoc2md lib/*.js > RENDER.md",
     "release": "standard-version"
   },
