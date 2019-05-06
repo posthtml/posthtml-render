@@ -217,11 +217,11 @@ describe('PostHTML Render', function () {
           SINGLE_TAGS.map(function (tag) {
             return { tag: tag }
           }
-        ))).to.eql(
+          ))).to.eql(
           SINGLE_TAGS.map(function (tag) {
             return '<' + tag + '>'
           }
-        ).join(''))
+          ).join(''))
       })
 
       it('Custom {String}', function () {
