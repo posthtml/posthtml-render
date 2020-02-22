@@ -289,5 +289,58 @@ describe('PostHTML Render', function () {
         expect(render(fixture, options)).to.eql(expected)
       })
     })
+
+    describe('quoteAllAttributes', function () {
+      it('True', function () {
+        var options = { quoteAllAttributes: true }
+
+        var fixture = { tag: 'a', attrs: { href: '/about/me/' } }
+        var expected = '<a href="/about/me/"></a>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('False', function () {
+        var options = { quoteAllAttributes: false }
+
+        var fixture = { tag: 'a', attrs: { href: '/about/me/' } }
+        var expected = '<a href=/about/me/></a>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('Required Space', function () {
+        var options = { quoteAllAttributes: false }
+
+        var fixture = { 'tag': 'p', 'attrs': { 'id': 'asd adsasd' } }
+        var expected = '<p id="asd adsasd"></p>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('Required Tab', function () {
+        var options = { quoteAllAttributes: false }
+
+        var fixture = { tag: 'a', attrs: { href: '/about-\t-characters' } }
+        var expected = '<a href="/about-\t-characters"></a>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('Closing slash', function () {
+        var options = {
+          closingSingleTag: 'slash',
+          quoteAllAttributes: false
+        }
+
+        // Note that <area href=foobar/> is incorrect as that is parsed as
+        // <area href="foobar/">.
+
+        var fixture = { tag: 'area', attrs: { href: 'foobar' } }
+        var expected = '<area href=foobar />'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+    })
   })
 })
