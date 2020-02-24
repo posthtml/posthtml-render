@@ -327,6 +327,15 @@ describe('PostHTML Render', function () {
         expect(render(fixture, options)).to.eql(expected)
       })
 
+      it('Required Empty', function () {
+        var options = { quoteAllAttributes: false }
+
+        var fixture = { tag: 'script', attrs: { async: '' } }
+        var expected = '<script async></script>'
+
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
       it('Closing slash', function () {
         var options = {
           closingSingleTag: 'slash',
