@@ -20,22 +20,22 @@ describe('PostHTML Render', function () {
   })
 
   it('{Array}', function () {
-    expect(render([ 'Hello world!' ])).to.eql('Hello world!')
+    expect(render(['Hello world!'])).to.eql('Hello world!')
   })
 
   describe('Tags', function () {
     it('Empty', function () {
-      expect(render({ content: [ 'Test' ] })).to.eql('<div>Test</div>')
+      expect(render({ content: ['Test'] })).to.eql('<div>Test</div>')
     })
 
     it('{Boolean} (false) -> {String}', function () {
       expect(render({ tag: false, content: 'Test' })).to.eql('Test')
-      expect(render({ tag: false, content: [ 'Test' ] })).to.eql('Test')
+      expect(render({ tag: false, content: ['Test'] })).to.eql('Test')
     })
 
     it('{Boolean} (false) -> {Number}', function () {
       expect(render({ tag: false, content: 555 })).to.eql('555')
-      expect(render({ tag: false, content: [ 555 ] })).to.eql('555')
+      expect(render({ tag: false, content: [555] })).to.eql('555')
     })
   })
 
@@ -125,7 +125,7 @@ describe('PostHTML Render', function () {
     })
 
     it('{Array<String>}', function () {
-      var fixture = { content: [ 'Hello world!' ] }
+      var fixture = { content: ['Hello world!'] }
       var expected = '<div>Hello world!</div>'
 
       expect(render(fixture)).to.eql(expected)
@@ -133,11 +133,11 @@ describe('PostHTML Render', function () {
 
     it('{Number}', function () {
       expect(render({ content: 555 })).to.eql('<div>555</div>')
-      expect(render({ content: [ 555 ] })).to.eql('<div>555</div>')
+      expect(render({ content: [555] })).to.eql('<div>555</div>')
     })
 
     it('{Array<Number>}', function () {
-      expect(render({ content: [ 555 ] })).to.eql('<div>555</div>')
+      expect(render({ content: [555] })).to.eql('<div>555</div>')
     })
 
     it('{Array}', function () {
@@ -161,7 +161,7 @@ describe('PostHTML Render', function () {
           {
             content: [
               {
-                content: [ 'Test', {} ]
+                content: ['Test', {}]
               }
             ]
           }
@@ -225,7 +225,7 @@ describe('PostHTML Render', function () {
       })
 
       it('Custom {String}', function () {
-        var options = { singleTags: [ 'rect' ] }
+        var options = { singleTags: ['rect'] }
 
         var fixture = { tag: 'rect' }
         var expected = '<rect>'
@@ -234,7 +234,7 @@ describe('PostHTML Render', function () {
       })
 
       it('Custom {RegExp}', function () {
-        var options = { singleTags: [ /^%.*%$/ ] }
+        var options = { singleTags: [/^%.*%$/] }
 
         var fixture = { tag: '%=title%' }
         var expected = '<%=title%>'
@@ -243,7 +243,7 @@ describe('PostHTML Render', function () {
       })
 
       it('Attrs', function () {
-        var options = { singleTags: [ 'rect' ] }
+        var options = { singleTags: ['rect'] }
 
         var fixture = { tag: 'rect', attrs: { id: 'id' } }
         var expected = '<rect id="id">'
@@ -312,7 +312,7 @@ describe('PostHTML Render', function () {
       it('Required Space', function () {
         var options = { quoteAllAttributes: false }
 
-        var fixture = { 'tag': 'p', 'attrs': { 'id': 'asd adsasd' } }
+        var fixture = { tag: 'p', attrs: { id: 'asd adsasd' } }
         var expected = '<p id="asd adsasd"></p>'
 
         expect(render(fixture, options)).to.eql(expected)
