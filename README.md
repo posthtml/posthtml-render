@@ -187,7 +187,7 @@ Specify if all attributes should be quoted.
 [npm-url]: https://npmjs.com/package/posthtml-render
 
 [node]: https://img.shields.io/node/v/posthtml-render.svg
-[node-url]: 
+[node-url]: https://img.shields.io/node/v/posthtml-render.svg
 
 [deps]: https://david-dm.org/posthtml/posthtml-render.svg
 [deps-url]: https://david-dm.org/posthtml/posthtml-render
