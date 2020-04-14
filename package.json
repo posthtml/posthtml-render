@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Renders PostHTML Tree to HTML/XML",
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
