@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Renders PostHTML Tree to HTML/XML",
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
@@ -15,8 +15,8 @@
   "devDependencies": {
     "chai": "^4.0.0",
     "coveralls": "^3.0.9",
-    "jsdoc-to-markdown": "^5.0.3",
-    "mocha": "^7.0.1",
+    "jsdoc-to-markdown": "^6.0.1",
+    "mocha": "^8.0.1",
     "nyc": "^15.0.0",
     "standard": "^14.3.1",
     "standard-version": "^8.0.1"
