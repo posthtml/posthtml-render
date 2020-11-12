@@ -351,5 +351,25 @@ describe('PostHTML Render', function () {
         expect(render(fixture, options)).to.eql(expected)
       })
     })
+
+    describe('replaceQuote', function () {
+      it('replace quote', function () {
+        var options = { replaceQuote: false }
+
+        var fixture = { tag: 'img', attrs: { src: '<?php echo $foo["bar"] ?>' } }
+        var expected = '<img src="<?php echo $foo["bar"] ?>">'
+        fs.writeFileSync('test.html', render(fixture, options))
+        expect(render(fixture, options)).to.eql(expected)
+      })
+
+      it('replace quote ternary operator', function () {
+        var options = { replaceQuote: false }
+
+        var fixture = { tag: 'img', attrs: { src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>' } }
+        var expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">'
+        fs.writeFileSync('test.html', render(fixture, options))
+        expect(render(fixture, options)).to.eql(expected)
+      })
+    })
   })
 })
