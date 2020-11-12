@@ -15,7 +15,7 @@ declare namespace render {
      * tag: `<br></br>`, slash: `<br />`, default: `<br>`
      *
      */
-    closingSingleTag: "tag" | "slash";
+    closingSingleTag: 'tag' | 'slash';
 
     /**
      * If all attributes should be quoted.

@@ -1,40 +1,41 @@
 {
   "name": "posthtml-render",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "description": "Renders PostHTML Tree to HTML/XML",
-  "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "license": "MIT",
+  "repository": "posthtml/posthtml-render",
+  "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
+  },
+  "scripts": {
+    "version": "conventional-changelog -i changelog.md -s -r 0 && git add changelog.md",
+    "test": "c8 mocha",
+    "docs": "jsdoc2md lib/*.js > render.md",
+    "pretest": "clinton"
   },
   "files": [
     "lib"
   ],
-  "devDependencies": {
-    "chai": "^4.0.0",
-    "coveralls": "^3.0.9",
-    "jsdoc-to-markdown": "^6.0.1",
-    "mocha": "^8.0.1",
-    "nyc": "^15.0.0",
-    "standard": "^14.3.1",
-    "standard-version": "^8.0.1"
-  },
-  "scripts": {
-    "lint": "standard --env mocha",
-    "test": "npm run lint && nyc mocha",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
-    "docs": "jsdoc2md lib/*.js > RENDER.md",
-    "release": "standard-version"
-  },
   "keywords": [
     "posthtml",
     "render",
     "html",
     "xml"
   ],
-  "bugs": "https://github.com/posthtml/posthtml-render/issues",
-  "homepage": "https://github.com/posthtml/posthtml-render#readme",
-  "repository": "https://github.com/posthtml/posthtml-render.git"
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-angular": "^11.0.0",
+    "c8": "^7.3.5",
+    "chai": "^4.2.0",
+    "clinton": "^0.14.0",
+    "conventional-changelog-cli": "^2.1.1",
+    "husky": "^4.3.0",
+    "jsdoc-to-markdown": "^6.0.1",
+    "lint-staged": "^10.5.1",
+    "mocha": "^8.2.1",
+    "xo": "^0.34.2"
+  },
+  "types": "lib/index.d.ts"
 }

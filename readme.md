@@ -88,6 +88,7 @@ const html = render(tree, options)
 |**[`singleTags`](#singletags)**|`{Array<String\|RegExp>}`|`[]`|Specify custom single tags (self closing)|
 |**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
 |**[`quoteAllAttributes`](#quoteAllAttributes)**|`{Boolean}`|[`true`](#default)|Put double quotes around all tags, even when not necessary.|
+|**[`replaceQuote`](#replaceQuote)**|`{Boolean}`|[`true`](#default)|Replaces quotes in attribute values with `&quote;`.|
 
 ### `singleTags`
 
@@ -174,13 +175,29 @@ Specify if all attributes should be quoted.
 ##### `true (Default)`
 
 ```html
-<script src="index.js"></script>
+<i src="index.js"></i>
 ```
 
 ##### `false`
 
 ```html
-<script src=index.js></script>
+<i src=index.js></i>
+```
+
+### `replaceQuote`
+
+Replaces quotes in attribute values with `&quote;`.
+
+##### `true (Default)`
+
+```html
+<img src="<?php echo $foo[&quote;bar&quote;] ?>">
+```
+
+##### `false`
+
+```html
+<img src="<?php echo $foo["bar"] ?>">
 ```
 
 [npm]: https://img.shields.io/npm/v/posthtml-render.svg

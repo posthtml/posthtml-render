@@ -67,12 +67,12 @@ module.exports = ['<!DOCTYPE html>', '\n', {
       }
     }, '\n\n    ', {
       tag: 'script',
-      content: ["\n        console.log('PostHTML!');\n    "]
+      content: ['\n        console.log(\'PostHTML!\');\n    ']
     }, '\n']
   }, '\n', {
     tag: 'body',
     attrs: {
-      onload: "try{if(!google.j.b){document.f&&document.f.q.focus();document.gbqf&&document.gbqf.q.focus();}}catch(e){}if(document.images)new Image().src='/images/nav_logo231.png'"
+      onload: 'try{if(!google.j.b){document.f&&document.f.q.focus();document.gbqf&&document.gbqf.q.focus();}}catch(e){}if(document.images)new Image().src=\'/images/nav_logo231.png\''
     },
     content: ['\n\n    ', {
       tag: 'h1',
@@ -104,7 +104,7 @@ module.exports = ['<!DOCTYPE html>', '\n', {
             tag: 'span',
             attrs: {
               id: 'idd',
-              'data-data': "{ foo: 'bar' }"
+              'data-data': '{ foo: \'bar\' }'
             },
             content: ['\n                    ', {
               tag: 'a',
@@ -145,7 +145,7 @@ module.exports = ['<!DOCTYPE html>', '\n', {
   }, '\n']
 }, '\n', {
   tag: false,
-  content: [NaN]
+  content: [Number.NaN]
 }, {
   tag: false,
   content: [[]]
@@ -163,7 +163,7 @@ module.exports = ['<!DOCTYPE html>', '\n', {
   content: [undefined]
 }, {
   tag: false,
-  content: NaN
+  content: Number.NaN
 }, {
   tag: false,
   content: []
@@ -179,4 +179,4 @@ module.exports = ['<!DOCTYPE html>', '\n', {
 }, {
   tag: false,
   content: undefined
-}, NaN, [], '', null, false, undefined]
+}, Number.NaN, [], '', null, false, undefined];

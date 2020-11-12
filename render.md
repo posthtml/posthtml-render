@@ -47,7 +47,8 @@ Options
 | --- | --- | --- |
 | singleTags | <code>Array.&lt;(String\|RegExp)&gt;</code> | Custom single tags (selfClosing) |
 | closingSingleTag | <code>String</code> | Closing format for single tag @prop |
-| quoteAllAttributes | <code>Boolean</code> | If all attributes should be quoted. Otherwise attributes will be unquoted when allowed. Formats: ``` tag: `<br></br>` ```, slash: `<br />` ```, ```default: `<br>` ``` |
+| quoteAllAttributes | <code>Boolean</code> | If all attributes should be quoted. Otherwise attributes will be unquoted when allowed. |
+| replaceQuote | <code>Boolean</code> | Replaces quotes in attribute values with `&quote;` Formats: ``` tag: `<br></br>` ```, slash: `<br />` ```, ```default: `<br>` ``` |
 
 <a name="render..html"></a>
 
