@@ -1,162 +1,162 @@
-var fs = require('fs')
-var path = require('path')
+const fs = require('fs');
+const path = require('path');
 
-var it = require('mocha').it
-var expect = require('chai').expect
-var describe = require('mocha').describe
+const {it} = require('mocha');
+const {expect} = require('chai');
+const {describe} = require('mocha');
 
-var render = require('../lib')
+const render = require('../lib');
 
-var tree = require('./templates/parser.js')
-var html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8')
+const tree = require('./templates/parser.js');
+const html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8');
 
-describe('PostHTML Render', function () {
-  it('{String}', function () {
-    expect(render('Hello world!')).to.eql('Hello world!')
-  })
+describe('PostHTML Render', () => {
+  it('{String}', () => {
+    expect(render('Hello world!')).to.eql('Hello world!');
+  });
 
-  it('{Number}', function () {
-    expect(render(555)).to.eql('555')
-  })
+  it('{Number}', () => {
+    expect(render(555)).to.eql('555');
+  });
 
-  it('{Array}', function () {
-    expect(render(['Hello world!'])).to.eql('Hello world!')
-  })
+  it('{Array}', () => {
+    expect(render(['Hello world!'])).to.eql('Hello world!');
+  });
 
-  describe('Tags', function () {
-    it('Empty', function () {
-      expect(render({ content: ['Test'] })).to.eql('<div>Test</div>')
-    })
+  describe('Tags', () => {
+    it('Empty', () => {
+      expect(render({content: ['Test']})).to.eql('<div>Test</div>');
+    });
 
-    it('{Boolean} (false) -> {String}', function () {
-      expect(render({ tag: false, content: 'Test' })).to.eql('Test')
-      expect(render({ tag: false, content: ['Test'] })).to.eql('Test')
-    })
+    it('{Boolean} (false) -> {String}', () => {
+      expect(render({tag: false, content: 'Test'})).to.eql('Test');
+      expect(render({tag: false, content: ['Test']})).to.eql('Test');
+    });
 
-    it('{Boolean} (false) -> {Number}', function () {
-      expect(render({ tag: false, content: 555 })).to.eql('555')
-      expect(render({ tag: false, content: [555] })).to.eql('555')
-    })
-  })
+    it('{Boolean} (false) -> {Number}', () => {
+      expect(render({tag: false, content: 555})).to.eql('555');
+      expect(render({tag: false, content: [555]})).to.eql('555');
+    });
+  });
 
-  describe('Attrs', function () {
-    it('Empty', function () {
-      var fixture = { attrs: { alt: '' } }
-      var expected = '<div alt=""></div>'
+  describe('Attrs', () => {
+    it('Empty', () => {
+      const fixture = {attrs: {alt: ''}};
+      const expected = '<div alt=""></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('Single', function () {
-      var fixture = {
+    it('Single', () => {
+      const fixture = {
         attrs: {
           id: 'header'
         }
-      }
-      var expected = '<div id="header"></div>'
+      };
+      const expected = '<div id="header"></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('Multiple', function () {
-      var fixture = {
+    it('Multiple', () => {
+      const fixture = {
         attrs: {
           id: 'header',
           style: 'color:red',
           'data-id': 'header'
         }
-      }
-      var expected = '<div id="header" style="color:red" data-id="header"></div>'
+      };
+      const expected = '<div id="header" style="color:red" data-id="header"></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{Boolean} (true)', function () {
-      var fixture = {
+    it('{Boolean} (true)', () => {
+      const fixture = {
         attrs: {
           disabled: true
         }
-      }
-      var expected = '<div disabled></div>'
+      };
+      const expected = '<div disabled></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{Boolean} (false)', function () {
-      var fixture = {
+    it('{Boolean} (false)', () => {
+      const fixture = {
         attrs: {
           disabled: false
         }
-      }
-      var expected = '<div></div>'
+      };
+      const expected = '<div></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{Number}', function () {
-      var fixture = {
+    it('{Number}', () => {
+      const fixture = {
         attrs: {
           val: 5
         }
-      }
-      var expected = '<div val="5"></div>'
+      };
+      const expected = '<div val="5"></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{String} (double quotes)', function () {
-      var fixture = {
+    it('{String} (double quotes)', () => {
+      const fixture = {
         attrs: {
           onclick: 'alert("hello world")'
         }
-      }
-      var expected = '<div onclick="alert(&quot;hello world&quot;)"></div>'
+      };
+      const expected = '<div onclick="alert(&quot;hello world&quot;)"></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
-  })
+      expect(render(fixture)).to.eql(expected);
+    });
+  });
 
-  describe('Content', function () {
-    it('{String}', function () {
-      var fixture = { content: 'Hello world!' }
-      var expected = '<div>Hello world!</div>'
+  describe('Content', () => {
+    it('{String}', () => {
+      const fixture = {content: 'Hello world!'};
+      const expected = '<div>Hello world!</div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{Array<String>}', function () {
-      var fixture = { content: ['Hello world!'] }
-      var expected = '<div>Hello world!</div>'
+    it('{Array<String>}', () => {
+      const fixture = {content: ['Hello world!']};
+      const expected = '<div>Hello world!</div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('{Number}', function () {
-      expect(render({ content: 555 })).to.eql('<div>555</div>')
-      expect(render({ content: [555] })).to.eql('<div>555</div>')
-    })
+    it('{Number}', () => {
+      expect(render({content: 555})).to.eql('<div>555</div>');
+      expect(render({content: [555]})).to.eql('<div>555</div>');
+    });
 
-    it('{Array<Number>}', function () {
-      expect(render({ content: [555] })).to.eql('<div>555</div>')
-    })
+    it('{Array<Number>}', () => {
+      expect(render({content: [555]})).to.eql('<div>555</div>');
+    });
 
-    it('{Array}', function () {
-      var fixture = {
+    it('{Array}', () => {
+      const fixture = {
         content: [
           [
             555,
-            { tag: 'div', content: 666 },
+            {tag: 'div', content: 666},
             777
           ]
         ]
-      }
-      var expected = '<div>555<div>666</div>777</div>'
+      };
+      const expected = '<div>555<div>666</div>777</div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
+      expect(render(fixture)).to.eql(expected);
+    });
 
-    it('Nested', function () {
-      var fixture = {
+    it('Nested', () => {
+      const fixture = {
         content: [
           {
             content: [
@@ -166,210 +166,210 @@ describe('PostHTML Render', function () {
             ]
           }
         ]
-      }
-      var expected = '<div><div><div>Test<div></div></div></div></div>'
+      };
+      const expected = '<div><div><div>Test<div></div></div></div></div>';
 
-      expect(render(fixture)).to.eql(expected)
-    })
-  })
+      expect(render(fixture)).to.eql(expected);
+    });
+  });
 
-  describe('Tree', function () {
-    it('Empty', function () {
-      expect(render()).to.eql('')
-    })
+  describe('Tree', () => {
+    it('Empty', () => {
+      expect(render()).to.eql('');
+    });
 
-    it('HTML', function () {
-      expect(html).to.eql(render(tree))
-    })
+    it('HTML', () => {
+      expect(html).to.eql(render(tree));
+    });
 
-    it('Immutable', function () {
-      var t = [{
+    it('Immutable', () => {
+      const t = [{
         tag: 'div',
         content: [
           {
             tag: false,
             content: [
-              { tag: 'div' },
-              { tag: 'span', content: ['Text'] }
+              {tag: 'div'},
+              {tag: 'span', content: ['Text']}
             ]
           }
         ]
-      }]
+      }];
 
-      var t1 = JSON.stringify(t)
+      const t1 = JSON.stringify(t);
 
-      render(t)
+      render(t);
 
-      var t2 = JSON.stringify(t)
+      const t2 = JSON.stringify(t);
 
-      expect(t1).to.eql(t2)
-    })
-  })
+      expect(t1).to.eql(t2);
+    });
+  });
 
-  describe('Options', function () {
-    describe('singleTag', function () {
-      it('Defaults', function () {
-        var SINGLE_TAGS = [
+  describe('Options', () => {
+    describe('singleTag', () => {
+      it('Defaults', () => {
+        const SINGLE_TAGS = [
           'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
-        ]
+        ];
 
         expect(render(
-          SINGLE_TAGS.map(function (tag) {
-            return { tag: tag }
+          SINGLE_TAGS.map(tag => {
+            return {tag};
           }
           ))).to.eql(
-          SINGLE_TAGS.map(function (tag) {
-            return '<' + tag + '>'
+          SINGLE_TAGS.map(tag => {
+            return '<' + tag + '>';
           }
-          ).join(''))
-      })
+          ).join(''));
+      });
 
-      it('Custom {String}', function () {
-        var options = { singleTags: ['rect'] }
+      it('Custom {String}', () => {
+        const options = {singleTags: ['rect']};
 
-        var fixture = { tag: 'rect' }
-        var expected = '<rect>'
+        const fixture = {tag: 'rect'};
+        const expected = '<rect>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Custom {RegExp}', function () {
-        var options = { singleTags: [/^%.*%$/] }
+      it('Custom {RegExp}', () => {
+        const options = {singleTags: [/^%.*%$/]};
 
-        var fixture = { tag: '%=title%' }
-        var expected = '<%=title%>'
+        const fixture = {tag: '%=title%'};
+        const expected = '<%=title%>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Attrs', function () {
-        var options = { singleTags: ['rect'] }
+      it('Attrs', () => {
+        const options = {singleTags: ['rect']};
 
-        var fixture = { tag: 'rect', attrs: { id: 'id' } }
-        var expected = '<rect id="id">'
+        const fixture = {tag: 'rect', attrs: {id: 'id'}};
+        const expected = '<rect id="id">';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
-    })
+        expect(render(fixture, options)).to.eql(expected);
+      });
+    });
 
-    describe('closingSingleTag', function () {
-      it('Tag', function () {
-        var options = { closingSingleTag: 'tag' }
+    describe('closingSingleTag', () => {
+      it('Tag', () => {
+        const options = {closingSingleTag: 'tag'};
 
-        var fixture = { tag: 'br' }
-        var expected = '<br></br>'
+        const fixture = {tag: 'br'};
+        const expected = '<br></br>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Slash', function () {
-        var options = { closingSingleTag: 'slash' }
+      it('Slash', () => {
+        const options = {closingSingleTag: 'slash'};
 
-        var fixture = { tag: 'br' }
-        var expected = '<br />'
+        const fixture = {tag: 'br'};
+        const expected = '<br />';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Slash with content', function () {
-        var options = { closingSingleTag: 'slash' }
+      it('Slash with content', () => {
+        const options = {closingSingleTag: 'slash'};
 
-        var fixture = { tag: 'br', content: ['test'] }
-        var expected = '<br />test'
+        const fixture = {tag: 'br', content: ['test']};
+        const expected = '<br />test';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Default', function () {
-        var options = { closingSingleTag: 'default' }
+      it('Default', () => {
+        const options = {closingSingleTag: 'default'};
 
-        var fixture = { tag: 'br' }
-        var expected = '<br>'
+        const fixture = {tag: 'br'};
+        const expected = '<br>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
-    })
+        expect(render(fixture, options)).to.eql(expected);
+      });
+    });
 
-    describe('quoteAllAttributes', function () {
-      it('True', function () {
-        var options = { quoteAllAttributes: true }
+    describe('quoteAllAttributes', () => {
+      it('True', () => {
+        const options = {quoteAllAttributes: true};
 
-        var fixture = { tag: 'a', attrs: { href: '/about/me/' } }
-        var expected = '<a href="/about/me/"></a>'
+        const fixture = {tag: 'a', attrs: {href: '/about/me/'}};
+        const expected = '<a href="/about/me/"></a>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('False', function () {
-        var options = { quoteAllAttributes: false }
+      it('False', () => {
+        const options = {quoteAllAttributes: false};
 
-        var fixture = { tag: 'a', attrs: { href: '/about/me/' } }
-        var expected = '<a href=/about/me/></a>'
+        const fixture = {tag: 'a', attrs: {href: '/about/me/'}};
+        const expected = '<a href=/about/me/></a>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Required Space', function () {
-        var options = { quoteAllAttributes: false }
+      it('Required Space', () => {
+        const options = {quoteAllAttributes: false};
 
-        var fixture = { tag: 'p', attrs: { id: 'asd adsasd' } }
-        var expected = '<p id="asd adsasd"></p>'
+        const fixture = {tag: 'p', attrs: {id: 'asd adsasd'}};
+        const expected = '<p id="asd adsasd"></p>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Required Tab', function () {
-        var options = { quoteAllAttributes: false }
+      it('Required Tab', () => {
+        const options = {quoteAllAttributes: false};
 
-        var fixture = { tag: 'a', attrs: { href: '/about-\t-characters' } }
-        var expected = '<a href="/about-\t-characters"></a>'
+        const fixture = {tag: 'a', attrs: {href: '/about-\t-characters'}};
+        const expected = '<a href="/about-\t-characters"></a>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Required Empty', function () {
-        var options = { quoteAllAttributes: false }
+      it('Required Empty', () => {
+        const options = {quoteAllAttributes: false};
 
-        var fixture = { tag: 'script', attrs: { async: '' } }
-        var expected = '<script async></script>'
+        const fixture = {tag: 'script', attrs: {async: ''}};
+        const expected = '<script async></script>';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('Closing slash', function () {
-        var options = {
+      it('Closing slash', () => {
+        const options = {
           closingSingleTag: 'slash',
           quoteAllAttributes: false
-        }
+        };
 
         // Note that <area href=foobar/> is incorrect as that is parsed as
         // <area href="foobar/">.
 
-        var fixture = { tag: 'area', attrs: { href: 'foobar' } }
-        var expected = '<area href=foobar />'
+        const fixture = {tag: 'area', attrs: {href: 'foobar'}};
+        const expected = '<area href=foobar />';
 
-        expect(render(fixture, options)).to.eql(expected)
-      })
-    })
+        expect(render(fixture, options)).to.eql(expected);
+      });
+    });
 
-    describe('replaceQuote', function () {
-      it('replace quote', function () {
-        var options = { replaceQuote: false }
+    describe('replaceQuote', () => {
+      it('replace quote', () => {
+        const options = {replaceQuote: false};
 
-        var fixture = { tag: 'img', attrs: { src: '<?php echo $foo["bar"] ?>' } }
-        var expected = '<img src="<?php echo $foo["bar"] ?>">'
-        fs.writeFileSync('test.html', render(fixture, options))
-        expect(render(fixture, options)).to.eql(expected)
-      })
+        const fixture = {tag: 'img', attrs: {src: '<?php echo $foo["bar"] ?>'}};
+        const expected = '<img src="<?php echo $foo["bar"] ?>">';
+        fs.writeFileSync('test.html', render(fixture, options));
+        expect(render(fixture, options)).to.eql(expected);
+      });
 
-      it('replace quote ternary operator', function () {
-        var options = { replaceQuote: false }
+      it('replace quote ternary operator', () => {
+        const options = {replaceQuote: false};
 
-        var fixture = { tag: 'img', attrs: { src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>' } }
-        var expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">'
-        fs.writeFileSync('test.html', render(fixture, options))
-        expect(render(fixture, options)).to.eql(expected)
-      })
-    })
-  })
-})
+        const fixture = {tag: 'img', attrs: {src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>'}};
+        const expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">';
+        fs.writeFileSync('test.html', render(fixture, options));
+        expect(render(fixture, options)).to.eql(expected);
+      });
+    });
+  });
+});
