@@ -371,5 +371,37 @@ describe('PostHTML Render', () => {
         expect(render(fixture, options)).to.eql(expected);
       });
     });
+
+    describe('quoteStyle', () => {
+      it('1 - single quote', () => {
+        const options = {replaceQuote: false, quoteStyle: 1};
+
+        const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
+        const expected = '<img src=\'https://example.com/example.png\' onload=\'testFunc("test")\'>';
+
+        fs.writeFileSync('test.html', render(fixture, options));
+        expect(render(fixture, options)).to.eql(expected);
+      });
+
+      it('2 - double quote', () => {
+        const options = {replaceQuote: false, quoteStyle: 2};
+
+        const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
+        const expected = '<img src="https://example.com/example.png" onload="testFunc("test")">';
+
+        fs.writeFileSync('test.html', render(fixture, options));
+        expect(render(fixture, options)).to.eql(expected);
+      });
+
+      it('0 - smart quote', () => {
+        const options = {replaceQuote: false, quoteStyle: 0};
+
+        const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
+        const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
+
+        fs.writeFileSync('test.html', render(fixture, options));
+        expect(render(fixture, options)).to.eql(expected);
+      });
+    });
   });
 });

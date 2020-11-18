@@ -24,6 +24,20 @@ declare namespace render {
      * @default true
      */
     quoteAllAttributes: boolean;
+
+    /**
+     * Quote style
+     *
+     * 0 - Smart quotes
+     *   <img src="https://example.com/example.png" onload='testFunc("test")'>
+     * 1 - Single quotes
+     *   <img src='https://example.com/example.png' onload='testFunc("test")'>
+     * 2 - double quotes
+     *   <img src="https://example.com/example.png" onload="testFunc("test")">
+     *
+     * @default 2
+     */
+    quoteStyle: 0 | 1 | 2
   };
 
   // PostHTML Tree
