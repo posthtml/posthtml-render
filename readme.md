@@ -89,6 +89,7 @@ const html = render(tree, options)
 |**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
 |**[`quoteAllAttributes`](#quoteAllAttributes)**|`{Boolean}`|[`true`](#default)|Put double quotes around all tags, even when not necessary.|
 |**[`replaceQuote`](#replaceQuote)**|`{Boolean}`|[`true`](#default)|Replaces quotes in attribute values with `&quote;`.|
+|**[`quoteStyle`](#quoteStyle)**|`{0|1|2}`|[`2`](#default)|Specify the style of quote arround the attribute values|
 
 ### `singleTags`
 
@@ -199,6 +200,33 @@ Replaces quotes in attribute values with `&quote;`.
 ```html
 <img src="<?php echo $foo["bar"] ?>">
 ```
+
+### `quoteStyle`
+
+##### `2 (Default)`
+
+Attribute values are wrapped in double quotes:
+
+```html
+<img src="https://example.com/example.png" onload="testFunc("test")">
+```
+
+##### `1`
+
+Attribute values are wrapped in single quote:
+
+```html
+<img src='https://example.com/example.png' onload='testFunc("test")'>
+```
+
+##### `0`
+
+Quote style is based on attribute values (an alternative for `replaceQuote` option):
+
+```html
+<img src="https://example.com/example.png" onload='testFunc("test")'>
+```
+
 
 [npm]: https://img.shields.io/npm/v/posthtml-render.svg
 [npm-url]: https://npmjs.com/package/posthtml-render
