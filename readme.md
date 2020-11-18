@@ -1,9 +1,7 @@
 [![npm][npm]][npm-url]
 [![node]]()
-[![deps][deps]][deps-url]
 [![tests][tests]][tests-url]
 [![coverage][cover]][cover-url]
-[![chat][chat]][chat-url]
 
 <div align="center">
   <a href="https://github.com/posthtml/posthtml">
@@ -234,14 +232,8 @@ Quote style is based on attribute values (an alternative for `replaceQuote` opti
 [node]: https://img.shields.io/node/v/posthtml-render.svg
 [node-url]: https://img.shields.io/node/v/posthtml-render.svg
 
-[deps]: https://david-dm.org/posthtml/posthtml-render.svg
-[deps-url]: https://david-dm.org/posthtml/posthtml-render
-
 [tests]: http://img.shields.io/travis/posthtml/posthtml-render.svg
 [tests-url]: https://travis-ci.org/posthtml/posthtml-render
 
 [cover]: https://coveralls.io/repos/github/posthtml/posthtml-render/badge.svg
 [cover-url]: https://coveralls.io/github/posthtml/posthtml-render
-
-[chat]: https://badges.gitter.im/posthtml/posthtml.svg
-[chat-url]: https://gitter.im/posthtml/posthtml
