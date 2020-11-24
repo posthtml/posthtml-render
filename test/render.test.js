@@ -171,6 +171,24 @@ describe('PostHTML Render', () => {
 
       expect(render(fixture)).to.eql(expected);
     });
+
+    it('_withoutClosingTag', () => {
+      const fixture = {
+        content: [
+          {
+            content: [
+              {
+                content: ['Test', {}]
+              }
+            ]
+          }
+        ],
+        _withoutClosingTag: true
+      };
+      const expected = '<div><div><div>Test<div></div></div></div>';
+
+      expect(render(fixture)).to.eql(expected);
+    });
   });
 
   describe('Tree', () => {
