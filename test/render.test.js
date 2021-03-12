@@ -357,7 +357,6 @@ describe('PostHTML Render', () => {
 
         const fixture = {tag: 'img', attrs: {src: '<?php echo $foo["bar"] ?>'}};
         const expected = '<img src="<?php echo $foo["bar"] ?>">';
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -366,7 +365,6 @@ describe('PostHTML Render', () => {
 
         const fixture = {tag: 'img', attrs: {src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>'}};
         const expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">';
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
     });
@@ -378,7 +376,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src=\'https://example.com/example.png\' onload=\'testFunc("test")\'>';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -388,7 +385,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src="https://example.com/example.png" onload="testFunc("test")">';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -398,7 +394,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
     });
