@@ -219,15 +219,8 @@ describe('PostHTML Render', () => {
 
         const SINGLE_TAGS = SINGLE_TAGS_LOWERCASE.concat(SINGLE_TAGS_UPPERCASE);
 
-        expect(render(
-          SINGLE_TAGS.map(tag => {
-              return {tag};
-            }
-          ))).to.eql(
-          SINGLE_TAGS.map(tag => {
-            return '<' + tag + '>';
-          }
-          ).join(''));
+        expect(render(SINGLE_TAGS.map(tag => ({tag}))))
+          .to.eql(SINGLE_TAGS.map(tag => `<${tag}>`).join(''));
       });
 
       it('Custom {String}', () => {
