@@ -209,14 +209,20 @@ describe('PostHTML Render', () => {
   describe('Options', () => {
     describe('singleTag', () => {
       it('Defaults', () => {
-        const SINGLE_TAGS = [
+        const SINGLE_TAGS_LOWERCASE = [
           'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
         ];
 
+        const SINGLE_TAGS_UPPERCASE = [
+          'IMG'
+        ];
+
+        const SINGLE_TAGS = SINGLE_TAGS_LOWERCASE.concat(SINGLE_TAGS_UPPERCASE);
+
         expect(render(
           SINGLE_TAGS.map(tag => {
-            return {tag};
-          }
+              return {tag};
+            }
           ))).to.eql(
           SINGLE_TAGS.map(tag => {
             return '<' + tag + '>';
