@@ -209,19 +209,18 @@ describe('PostHTML Render', () => {
   describe('Options', () => {
     describe('singleTag', () => {
       it('Defaults', () => {
-        const SINGLE_TAGS = [
+        const SINGLE_TAGS_LOWERCASE = [
           'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
         ];
 
-        expect(render(
-          SINGLE_TAGS.map(tag => {
-            return {tag};
-          }
-          ))).to.eql(
-          SINGLE_TAGS.map(tag => {
-            return '<' + tag + '>';
-          }
-          ).join(''));
+        const SINGLE_TAGS_UPPERCASE = [
+          'IMG'
+        ];
+
+        const SINGLE_TAGS = SINGLE_TAGS_LOWERCASE.concat(SINGLE_TAGS_UPPERCASE);
+
+        expect(render(SINGLE_TAGS.map(tag => ({tag}))))
+          .to.eql(SINGLE_TAGS.map(tag => `<${tag}>`).join(''));
       });
 
       it('Custom {String}', () => {
@@ -358,7 +357,6 @@ describe('PostHTML Render', () => {
 
         const fixture = {tag: 'img', attrs: {src: '<?php echo $foo["bar"] ?>'}};
         const expected = '<img src="<?php echo $foo["bar"] ?>">';
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -367,7 +365,6 @@ describe('PostHTML Render', () => {
 
         const fixture = {tag: 'img', attrs: {src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>'}};
         const expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">';
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
     });
@@ -379,7 +376,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src=\'https://example.com/example.png\' onload=\'testFunc("test")\'>';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -389,7 +385,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src="https://example.com/example.png" onload="testFunc("test")">';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
 
@@ -399,7 +394,6 @@ describe('PostHTML Render', () => {
         const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
         const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
 
-        fs.writeFileSync('test.html', render(fixture, options));
         expect(render(fixture, options)).to.eql(expected);
       });
     });
