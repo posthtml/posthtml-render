@@ -1,7 +1,6 @@
-.editorconfig
-npm-debug.log
-
+node_modules
+.gitignore
+.travis.yml
+coverage
 .nyc_output
-test/
-coverage/
-node_modules/
+src

@@ -117,7 +117,7 @@ const html = render(tree, options)
 const render = require('posthtml-render')
 
 const tree = [ { tag: '%=title%' } ]
-const options = { singleTags: [ '/^%.*%$/' ] }
+const options = { singleTags: [ /^%.*%$/ ] }
 
 const html = render(tree, options)
 ```

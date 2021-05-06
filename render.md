@@ -61,4 +61,3 @@ HTML Stringifier
 | Param | Type | Description |
 | --- | --- | --- |
 | tree | <code>Array</code> \| <code>Object</code> | PostHTML Tree |
-
