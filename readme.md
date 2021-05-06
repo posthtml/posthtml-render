@@ -89,7 +89,7 @@ const html = render(tree, options)
 |**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
 |**[`quoteAllAttributes`](#quoteAllAttributes)**|`{Boolean}`|[`true`](#default)|Put double quotes around all tags, even when not necessary.|
 |**[`replaceQuote`](#replaceQuote)**|`{Boolean}`|[`true`](#default)|Replaces quotes in attribute values with `&quote;`.|
-|**[`quoteStyle`](#quoteStyle)**|`{0|1|2}`|[`2`](#default)|Specify the style of quote arround the attribute values|
+|**[`quoteStyle`](#quoteStyle)**|`{0 or 1 or 2}`|[`2`](#default)|Specify the style of quote arround the attribute values|
 
 ### `singleTags`
 

@@ -203,9 +203,15 @@ test('{Tree} {Immutable}', t => {
 });
 
 test('{Options} {singleTag} Defaults', t => {
-  const SINGLE_TAGS = [
+  const SINGLE_TAGS_LOWERCASE = [
     'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
   ];
+
+  const SINGLE_TAGS_UPPERCASE = [
+    'IMG'
+  ];
+
+  const SINGLE_TAGS = SINGLE_TAGS_LOWERCASE.concat(SINGLE_TAGS_UPPERCASE);
 
   t.is(
     render(SINGLE_TAGS.map(tag => ({tag}))),
@@ -339,7 +345,6 @@ test('{Options} {replaceQuote} replace quote', t => {
 
   const fixture = {tag: 'img', attrs: {src: '<?php echo $foo["bar"] ?>'}};
   const expected = '<img src="<?php echo $foo["bar"] ?>">';
-  fs.writeFileSync('test.html', render(fixture, options));
   t.is(render(fixture, options), expected);
 });
 
@@ -348,7 +353,6 @@ test('{Options} {replaceQuote} replace quote ternary operator', t => {
 
   const fixture = {tag: 'img', attrs: {src: '<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>'}};
   const expected = '<img src="<?php echo isset($foo["bar"]) ? $foo["bar"] : ""; ?>">';
-  fs.writeFileSync('test.html', render(fixture, options));
   t.is(render(fixture, options), expected);
 });
 
@@ -358,7 +362,6 @@ test('{Options} {quoteStyle} 1 - single quote', t => {
   const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
   const expected = '<img src=\'https://example.com/example.png\' onload=\'testFunc("test")\'>';
 
-  fs.writeFileSync('test.html', render(fixture, options));
   t.is(render(fixture, options), expected);
 });
 
@@ -368,7 +371,6 @@ test('{Options} {quoteStyle} 2 - double quote', t => {
   const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
   const expected = '<img src="https://example.com/example.png" onload="testFunc("test")">';
 
-  fs.writeFileSync('test.html', render(fixture, options));
   t.is(render(fixture, options), expected);
 });
 
@@ -378,6 +380,5 @@ test('{Options} {quoteStyle} 0 - smart quote', t => {
   const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
   const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
 
-  fs.writeFileSync('test.html', render(fixture, options));
   t.is(render(fixture, options), expected);
 });

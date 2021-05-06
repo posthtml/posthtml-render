@@ -137,7 +137,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
       return singleRegExp.some(reg => reg.test(tag));
     }
 
-    if (!singleTags?.includes(tag)) {
+    if (!singleTags?.includes(tag.toLowerCase())) {
       return false;
     }
 
