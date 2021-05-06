@@ -149,7 +149,14 @@ function render(tree?: Node | Node[], options: Options = {}): string {
 
     for (const [key, value] of Object.entries(object)) {
       if (typeof value === 'string') {
-        if (quoteAllAttributes || ATTRIBUTE_QUOTES_REQUIRED.test(value)) {
+        let json;
+        try {
+          json = JSON.parse(value);
+        } catch {}
+
+        if (json) {
+          attr += ` ${key}='${value}'`;
+        } else if (quoteAllAttributes || ATTRIBUTE_QUOTES_REQUIRED.test(value)) {
           let attrValue = value;
 
           if (replaceQuote) {
