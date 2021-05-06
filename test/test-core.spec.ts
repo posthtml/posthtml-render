@@ -116,6 +116,18 @@ test('{Attrs} {String} (double quotes)', t => {
   t.is(render(fixture), expected);
 });
 
+test('{Attrs} {String} (json)', t => {
+  const fixture = {
+    attrs: {
+      'x-data': JSON.stringify({a: 1})
+    }
+  };
+
+  const expected = '<div x-data=\'{"a":1}\'></div>';
+
+  t.is(render(fixture), expected);
+});
+
 test('{Content} {String}', t => {
   const fixture = {content: 'Hello world!'};
   const expected = '<div>Hello world!</div>';
