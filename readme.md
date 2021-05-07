@@ -115,7 +115,7 @@ const html = render(tree, options)
 const render = require('posthtml-render')
 
 const tree = [ { tag: '%=title%' } ]
-const options = { singleTags: [ '/^%.*%$/' ] }
+const options = { singleTags: [ /^%.*%$/ ] }
 
 const html = render(tree, options)
 ```
@@ -164,7 +164,21 @@ const html = render(tree)
 ```
 
 ```html
-<img></img>
+<img>
+```
+
+##### `'closeAs'`
+
+```js
+const tree = [ {
+  tag: 'custom',
+  closeAs: 'default' // Available types: `tag` | `slash` | `default`
+} ]
+const html = render(tree, { closingSingleTag: 'closeAs' })
+```
+
+```html
+<custom>
 ```
 
 ### `quoteAllAttributes`

@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>PostHTML Render</title>
-  <script src="../../lib/browser.min.js"></script>
-  <script>
-    window.onload = function () {
-      var tree = {
-        tag: 'h1',
-        attrs: {
-          id: 'header',
-          style: 'color:red;',
-          'data-id': 'header'
-        },
-        content: 'Test'
-      }
+    <head>
+        <title>PostHTML Render</title>
+        <script src="../../lib/browser.min.js"></script>
+        <script>
+            window.onload = function () {
+                var tree = {
+                    tag: 'h1',
+                    attrs: {
+                        id: 'header',
+                        style: 'color:red;',
+                        'data-id': 'header',
+                    },
+                    content: 'Test',
+                };
 
-      document.body.innerHTML = render(tree);
-    };
-  </script>
-</head>
-<body></body>
+                document.body.innerHTML = render(tree);
+            };
+        </script>
+    </head>
+    <body></body>
 </html>

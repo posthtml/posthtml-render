@@ -1,5 +1,5 @@
-/* jshint maxlen: false */
-module.exports = ['<!DOCTYPE html>', '\n', {
+// @ts-nocheck
+const tree = ['<!DOCTYPE html>', '\n', {
   tag: 'html',
   attrs: {
     xmlns: 'http://www.w3.org/1999/xhtml',
@@ -180,3 +180,5 @@ module.exports = ['<!DOCTYPE html>', '\n', {
   tag: false,
   content: undefined
 }, Number.NaN, [], '', null, false, undefined];
+
+export default tree;

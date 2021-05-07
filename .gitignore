@@ -1,13 +1,5 @@
-# OS
-
-._*
-.DS_Store
-
-# NODEJS
-
-npm-debug.log
 node_modules
-npm-debug.log
-
-.nyc_output
 coverage
+.nyc_output
+npm-debug.log
+dist

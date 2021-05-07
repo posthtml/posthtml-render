@@ -1,3 +1,17 @@
+## 2.0.0 (2021-05-07)
+
+* docs: add quoteStyle option ([38b2b04](https://github.com/posthtml/posthtml-render/commit/38b2b04))
+* docs: description node property closeAs, issue #48 ([5979fc9](https://github.com/posthtml/posthtml-render/commit/5979fc9)), closes [#48](https://github.com/posthtml/posthtml-render/issues/48)
+* type: add node property closeAs, issue #48 ([00ec9b0](https://github.com/posthtml/posthtml-render/commit/00ec9b0)), closes [#48](https://github.com/posthtml/posthtml-render/issues/48)
+* test: JSON strings in data attributes, #46 ([d0508e2](https://github.com/posthtml/posthtml-render/commit/d0508e2)), closes [#46](https://github.com/posthtml/posthtml-render/issues/46)
+* test: node property closeAs, issue #48 ([f561e6b](https://github.com/posthtml/posthtml-render/commit/f561e6b)), closes [#48](https://github.com/posthtml/posthtml-render/issues/48)
+* test: quoteStyle option ([18d31c0](https://github.com/posthtml/posthtml-render/commit/18d31c0))
+* feat: add node property closeAs, close #48 ([6892ede](https://github.com/posthtml/posthtml-render/commit/6892ede)), closes [#48](https://github.com/posthtml/posthtml-render/issues/48)
+* feat: add type definition for quoteStyle ([3ee8d58](https://github.com/posthtml/posthtml-render/commit/3ee8d58))
+* feat: implement quoteStyle option ([903300f](https://github.com/posthtml/posthtml-render/commit/903300f))
+* feat: JSON strings in data attributes, close #46 ([5539187](https://github.com/posthtml/posthtml-render/commit/5539187)), closes [#46](https://github.com/posthtml/posthtml-render/issues/46)
+* merge: from master ([3ab5e82](https://github.com/posthtml/posthtml-render/commit/3ab5e82))
+* refactor: migrate to typescript ([9eaaca4](https://github.com/posthtml/posthtml-render/commit/9eaaca4))
 ## <small>1.3.1 (2021-03-12)</small>
 
 * build: update dep dev ([acf654b](https://github.com/posthtml/posthtml-render/commit/acf654b))
