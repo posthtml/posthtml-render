@@ -166,7 +166,21 @@ const html = render(tree)
 ```
 
 ```html
-<img></img>
+<img>
+```
+
+##### `'closeAs'`
+
+```js
+const tree = [ {
+  tag: 'custom',
+  closeAs: 'default' // Available types: `tag` | `slash` | `default`
+} ]
+const html = render(tree, { closingSingleTag: 'closeAs' })
+```
+
+```html
+<custom>
 ```
 
 ### `quoteAllAttributes`
