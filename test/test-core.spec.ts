@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import test from 'ava';
 import render from '../src';
-import {closingSingleTagEnum, quoteStyleEnum} from '../types/index.d';
+import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, quoteStyleEnum} from '../types/index.d';
 import tree from './templates/parser';
 
 const html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8');
@@ -259,7 +259,7 @@ test('{Options} {singleTag} Attrs', t => {
 });
 
 test('{Options} {closingSingleTag} Tag', t => {
-  const options = {closingSingleTag: closingSingleTagEnum.Tag};
+  const options = {closingSingleTag: closingSingleTagOptionEnum.tag};
 
   const fixture = {tag: 'br'};
   const expected = '<br></br>';
@@ -268,7 +268,7 @@ test('{Options} {closingSingleTag} Tag', t => {
 });
 
 test('{Options} {closingSingleTag} Slash', t => {
-  const options = {closingSingleTag: closingSingleTagEnum.Slash};
+  const options = {closingSingleTag: closingSingleTagOptionEnum.slash};
 
   const fixture = {tag: 'br'};
   const expected = '<br />';
@@ -277,7 +277,7 @@ test('{Options} {closingSingleTag} Slash', t => {
 });
 
 test('{Options} {closingSingleTag} Slash with content', t => {
-  const options = {closingSingleTag: closingSingleTagEnum.Slash};
+  const options = {closingSingleTag: closingSingleTagOptionEnum.slash};
 
   const fixture = {tag: 'br', content: ['test']};
   const expected = '<br />test';
@@ -290,6 +290,25 @@ test('{Options} {closingSingleTag} Default', t => {
   const expected = '<br>';
 
   t.is(render(fixture), expected);
+});
+
+test('{Options} {closingSingleTag} closeAs', t => {
+  const options = {closingSingleTag: closingSingleTagOptionEnum.closeAs};
+  const fixture = {
+    content: [
+      {
+        content: [
+          {
+            content: ['Test', {}]
+          }
+        ]
+      }
+    ],
+    closeAs: closingSingleTagTypeEnum.default
+  };
+  const expected = '<div><div><div>Test<div></div></div></div>';
+
+  t.is(render(fixture, options), expected);
 });
 
 test('{Options} {quoteAllAttributes} True', t => {
@@ -339,7 +358,7 @@ test('{Options} {quoteAllAttributes} Required Empty', t => {
 
 test('{Options} {quoteAllAttributes} Closing slash', t => {
   const options = {
-    closingSingleTag: closingSingleTagEnum.Slash,
+    closingSingleTag: closingSingleTagOptionEnum.slash,
     quoteAllAttributes: false
   };
 
