@@ -12,6 +12,18 @@
 * feat: JSON strings in data attributes, close #46 ([5539187](https://github.com/posthtml/posthtml-render/commit/5539187)), closes [#46](https://github.com/posthtml/posthtml-render/issues/46)
 * merge: from master ([3ab5e82](https://github.com/posthtml/posthtml-render/commit/3ab5e82))
 * refactor: migrate to typescript ([9eaaca4](https://github.com/posthtml/posthtml-render/commit/9eaaca4))
+## <small>1.3.1 (2021-03-12)</small>
+
+* build: update dep dev ([acf654b](https://github.com/posthtml/posthtml-render/commit/acf654b))
+* test: Case sensitivity breaks empty elements, issue #49 ([041774c](https://github.com/posthtml/posthtml-render/commit/041774c)), closes [#49](https://github.com/posthtml/posthtml-render/issues/49)
+* test: Case sensitivity breaks empty elements, issue #49 ([16b00d4](https://github.com/posthtml/posthtml-render/commit/16b00d4)), closes [#49](https://github.com/posthtml/posthtml-render/issues/49)
+* test: quoteStyle option ([18d31c0](https://github.com/posthtml/posthtml-render/commit/18d31c0))
+* test: remove undefined write ([9d22fff](https://github.com/posthtml/posthtml-render/commit/9d22fff))
+* fix: case sensitivity breaks empty elements, close #49 ([1a87466](https://github.com/posthtml/posthtml-render/commit/1a87466)), closes [#49](https://github.com/posthtml/posthtml-render/issues/49)
+* docs: add quoteStyle option ([38b2b04](https://github.com/posthtml/posthtml-render/commit/38b2b04))
+* docs: remove unused badges ([903037c](https://github.com/posthtml/posthtml-render/commit/903037c))
+* feat: add type definition for quoteStyle ([3ee8d58](https://github.com/posthtml/posthtml-render/commit/3ee8d58))
+* feat: implement quoteStyle option ([903300f](https://github.com/posthtml/posthtml-render/commit/903300f))
 * Delete test.html ([0dea643](https://github.com/posthtml/posthtml-render/commit/0dea643))
 * Update funding.yml ([86f2c9d](https://github.com/posthtml/posthtml-render/commit/86f2c9d))
 
