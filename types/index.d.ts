@@ -1,8 +1,14 @@
-import {Node} from 'posthtml-parser';
+export enum closingSingleTagOptionEnum {
+  tag = 'tag',
+  slash = 'slash',
+  default = 'default',
+  closeAs = 'closeAs'
+}
 
-export enum closingSingleTagEnum {
-  Tag = 'tag',
-  Slash = 'slash'
+export enum closingSingleTagTypeEnum {
+  tag = 'tag',
+  slash = 'slash',
+  default = 'default'
 }
 
 export enum quoteStyleEnum {
@@ -27,7 +33,7 @@ export type Options = {
    * tag: `<br></br>`, slash: `<br />`, default: `<br>`
    *
    */
-  closingSingleTag?: closingSingleTagEnum;
+  closingSingleTag?: closingSingleTagOptionEnum;
 
   /**
    * If all attributes should be quoted.
