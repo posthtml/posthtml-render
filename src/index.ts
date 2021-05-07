@@ -1,5 +1,9 @@
-import {Attributes, Node} from 'posthtml-parser';
-import {Options, quoteStyleEnum} from '../types/index.d';
+import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
+import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, Options, quoteStyleEnum} from '../types/index.d';
+
+type Node = NodeText | NodeTag & {
+  closeAs?: closingSingleTagTypeEnum;
+};
 
 const SINGLE_TAGS = [
   'area',
@@ -107,23 +111,40 @@ function render(tree?: Node | Node[], options: Options = {}): string {
         result += attrs(node.attrs);
       }
 
+      const closeAs = {
+        [closingSingleTagTypeEnum.tag]: `></${tag}>`,
+        [closingSingleTagTypeEnum.slash]: ' />',
+        [closingSingleTagTypeEnum.default]: '>'
+      };
+
       if (isSingleTag(tag)) {
         switch (closingSingleTag) {
-          case 'tag':
-            result += `></${tag}>`;
+          case closingSingleTagOptionEnum.tag:
+            result += closeAs[closingSingleTagTypeEnum.tag];
 
             break;
-          case 'slash':
-            result += ' />';
+          case closingSingleTagOptionEnum.slash:
+            result += closeAs[closingSingleTagTypeEnum.slash];
+
+            break;
+          case closingSingleTagOptionEnum.closeAs:
+            result += closeAs[node.closeAs ?
+              closingSingleTagTypeEnum[node.closeAs] :
+              closingSingleTagTypeEnum.default];
 
             break;
           default:
-            result += '>';
+            result += closeAs[closingSingleTagTypeEnum.default];
         }
 
         if (node.content) {
           result += html(node.content);
         }
+      } else if (closingSingleTag === closingSingleTagOptionEnum.closeAs && node.closeAs) {
+        const type = node.closeAs ?
+          closingSingleTagTypeEnum[node.closeAs] :
+          closingSingleTagTypeEnum.default;
+        result += `${closeAs[type]}${html(node.content)}`;
       } else {
         result += `>${html(node.content)}</${tag}>`;
       }
