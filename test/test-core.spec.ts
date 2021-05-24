@@ -3,6 +3,7 @@ import path from 'path';
 import test from 'ava';
 import render from '../src';
 import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, quoteStyleEnum} from '../types/index.d';
+import parser from 'posthtml-parser';
 import tree from './templates/parser';
 
 const html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8');
@@ -185,6 +186,14 @@ test('{Content} {Nested}', t => {
 
 test('{Tree} {Empty}', t => {
   t.is(render(), '');
+});
+
+test.only('{Tree} {String Template}', t => {
+  const html = `
+    <div>String Template</div>
+  `;
+  const tree = parser(html);
+  t.is(html, render(tree));
 });
 
 test('{Tree} {HTML}', t => {
