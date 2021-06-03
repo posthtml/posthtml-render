@@ -1,5 +1,13 @@
+## <small>2.0.2 (2021-06-03)</small>
+
+* fix: concate single tag ([a6764cf](https://github.com/posthtml/posthtml-render/commit/a6764cf))
+* test: fix only one test ([60f598d](https://github.com/posthtml/posthtml-render/commit/60f598d))
+
+
+
 ## <small>2.0.1 (2021-05-24)</small>
 
+* 2.0.1 ([feb426c](https://github.com/posthtml/posthtml-render/commit/feb426c))
 * ci: drop support old node ([810c46c](https://github.com/posthtml/posthtml-render/commit/810c46c))
 * ci: lock ([3c894d6](https://github.com/posthtml/posthtml-render/commit/3c894d6))
 * build: add prepare script, close #53 ([dbc9b47](https://github.com/posthtml/posthtml-render/commit/dbc9b47)), closes [#53](https://github.com/posthtml/posthtml-render/issues/53)
