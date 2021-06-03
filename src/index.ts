@@ -5,7 +5,7 @@ type Node = NodeText | NodeTag & {
   closeAs?: closingSingleTagTypeEnum;
 };
 
-const SINGLE_TAGS = [
+const SINGLE_TAGS: Array<string | RegExp> = [
   'area',
   'base',
   'br',
@@ -28,7 +28,6 @@ const SINGLE_TAGS = [
 const ATTRIBUTE_QUOTES_REQUIRED = /[\t\n\f\r "'`=<>]/;
 
 const defaultOptions = {
-  singleTags: SINGLE_TAGS,
   closingSingleTag: undefined,
   quoteAllAttributes: true,
   replaceQuote: true,
@@ -36,9 +35,16 @@ const defaultOptions = {
 };
 
 function render(tree?: Node | Node[], options: Options = {}): string {
+  let st = SINGLE_TAGS;
+
+  if (options.singleTags) {
+    st = [...new Set([...SINGLE_TAGS, ...options.singleTags])];
+  }
+
   options = {
     ...defaultOptions,
-    ...options
+    ...options,
+    singleTags: st
   };
 
   const {
