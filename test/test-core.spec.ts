@@ -188,7 +188,7 @@ test('{Tree} {Empty}', t => {
   t.is(render(), '');
 });
 
-test.only('{Tree} {String Template}', t => {
+test('{Tree} {String Template}', t => {
   const html = `
     <div>String Template</div>
   `;
