@@ -167,6 +167,20 @@ test('{Content} {Array}', t => {
   t.is(render(fixture), expected);
 });
 
+test('{Content} {Array<before empty array content>}', t => {
+  const fixture = {
+    content: [
+      [],
+      [
+        {tag: 'style', content: 'body { color: red; }'}
+      ]
+    ]
+  };
+  const expected = '<div><style>body { color: red; }</style></div>';
+
+  t.is(render(fixture), expected);
+});
+
 test('{Content} {Nested}', t => {
   const fixture = {
     content: [
