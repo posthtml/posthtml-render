@@ -78,12 +78,17 @@ function render(tree?: Node | Node[], options: Options = {}): string {
         node === undefined ||
         node === null ||
         (typeof node === 'string' && node.length === 0) ||
-        Number.isNaN(node)) {
+        Number.isNaN(node)
+      ) {
         break;
       }
 
       // Treat as new root tree if node is an array
       if (Array.isArray(node)) {
+        if (node.length === 0) {
+          continue;
+        }
+
         result += html(node);
 
         break;

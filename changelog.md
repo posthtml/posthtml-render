@@ -1,5 +1,13 @@
+## <small>2.0.3 (2021-06-04)</small>
+
+* test: if in content has empty array, issue #56 ([95bad06](https://github.com/posthtml/posthtml-render/commit/95bad06)), closes [#56](https://github.com/posthtml/posthtml-render/issues/56)
+* fix: if in content has empty array, close #56 ([892d602](https://github.com/posthtml/posthtml-render/commit/892d602)), closes [#56](https://github.com/posthtml/posthtml-render/issues/56)
+
+
+
 ## <small>2.0.2 (2021-06-03)</small>
 
+* 2.0.2 ([bcbdc60](https://github.com/posthtml/posthtml-render/commit/bcbdc60))
 * fix: concate single tag ([a6764cf](https://github.com/posthtml/posthtml-render/commit/a6764cf))
 * test: fix only one test ([60f598d](https://github.com/posthtml/posthtml-render/commit/60f598d))
 
