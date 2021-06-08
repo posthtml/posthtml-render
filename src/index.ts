@@ -80,7 +80,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
         (typeof node === 'string' && node.length === 0) ||
         Number.isNaN(node)
       ) {
-        break;
+        continue;
       }
 
       // Treat as new root tree if node is an array

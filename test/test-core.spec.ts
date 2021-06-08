@@ -237,6 +237,48 @@ test('{Tree} {Immutable}', t => {
   t.is(html1, html2);
 });
 
+test('{Tree} {With empty string}', t => {
+  const tree = [
+    '',
+    '<!doctype html>',
+    '',
+    {
+      tag: 'html',
+      attrs: {
+        lang: 'en'
+      },
+      content: [
+        '',
+        {
+          tag: 'head',
+          content: [
+            '',
+            {
+              tag: 'meta',
+              attrs: {
+                charset: 'utf-8'
+              }
+            },
+            ''
+          ]
+        },
+        '',
+        {
+          tag: 'body',
+          content: [
+            ' '
+          ]
+        },
+        ''
+      ]
+    },
+    ''
+  ];
+  const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body> </body></html>';
+
+  t.is(render(tree), html);
+});
+
 test('{Options} {singleTag} Defaults', t => {
   const SINGLE_TAGS_LOWERCASE = [
     'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'

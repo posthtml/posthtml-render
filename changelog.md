@@ -1,5 +1,14 @@
+## <small>2.0.4 (2021-06-08)</small>
+
+* perf: engine up to 12 version ([7c430be](https://github.com/posthtml/posthtml-render/commit/7c430be))
+* fix: if tree contains empty string, close #58 ([401f5a6](https://github.com/posthtml/posthtml-render/commit/401f5a6)), closes [#58](https://github.com/posthtml/posthtml-render/issues/58)
+* test: if tree exists empty string, issue #58 ([3493d4f](https://github.com/posthtml/posthtml-render/commit/3493d4f)), closes [#58](https://github.com/posthtml/posthtml-render/issues/58)
+
+
+
 ## <small>2.0.3 (2021-06-04)</small>
 
+* 2.0.3 ([f5cd69d](https://github.com/posthtml/posthtml-render/commit/f5cd69d))
 * test: if in content has empty array, issue #56 ([95bad06](https://github.com/posthtml/posthtml-render/commit/95bad06)), closes [#56](https://github.com/posthtml/posthtml-render/issues/56)
 * fix: if in content has empty array, close #56 ([892d602](https://github.com/posthtml/posthtml-render/commit/892d602)), closes [#56](https://github.com/posthtml/posthtml-render/issues/56)
 

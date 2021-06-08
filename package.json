@@ -1,13 +1,13 @@
 {
   "name": "posthtml-render",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "Renders PostHTML Tree to HTML/XML",
   "license": "MIT",
   "repository": "posthtml/posthtml-render",
   "author": "Ivan Voischev <voischev.ivan@ya.ru>",
   "main": "dist/index.js",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   },
   "scripts": {
     "version": "conventional-changelog -i changelog.md -s -r 0 && git add changelog.md",
