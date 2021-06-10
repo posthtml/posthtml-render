@@ -75,6 +75,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
     for (const node of tree) {
       // Undefined, null, '', [], NaN
       if (
+        node === false ||
         node === undefined ||
         node === null ||
         (typeof node === 'string' && node.length === 0) ||
@@ -91,7 +92,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
 
         result += html(node);
 
-        break;
+        continue;
       }
 
       if (typeof node === 'string' || typeof node === 'number') {
@@ -111,7 +112,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
       if (node.tag === false) {
         result += html(node.content);
 
-        break;
+        continue;
       }
 
       const tag = typeof node.tag === 'string' ? node.tag : 'div';
