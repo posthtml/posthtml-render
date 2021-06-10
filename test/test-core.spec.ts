@@ -551,7 +551,7 @@ test.only('{QuoteStyle}', t => {
       height: 20
     }
   };
-  const expected = '<img src="https://example.com/example.png" width=\'20\' height=\'20\'>';
+  const expected = '<img src="https://example.com/example.png" width="20" height="20">';
 
   t.is(render(fixture), expected);
 });
