@@ -1,6 +1,6 @@
 {
   "name": "posthtml-render",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Renders PostHTML Tree to HTML/XML",
   "license": "MIT",
   "repository": "posthtml/posthtml-render",

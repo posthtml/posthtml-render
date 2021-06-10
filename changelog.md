@@ -1,5 +1,16 @@
+## <small>2.0.5 (2021-06-10)</small>
+
+* test: for long test ([d019534](https://github.com/posthtml/posthtml-render/commit/d019534))
+* test: invalid in htmlnano travis ([69d666b](https://github.com/posthtml/posthtml-render/commit/69d666b))
+* test: more tests ([4dfa92e](https://github.com/posthtml/posthtml-render/commit/4dfa92e))
+* test: off only one test ([fcdda46](https://github.com/posthtml/posthtml-render/commit/fcdda46))
+* fix: empty and false content, close #58 ([af9d828](https://github.com/posthtml/posthtml-render/commit/af9d828)), closes [#58](https://github.com/posthtml/posthtml-render/issues/58)
+
+
+
 ## <small>2.0.4 (2021-06-08)</small>
 
+* 2.0.4 ([698e31f](https://github.com/posthtml/posthtml-render/commit/698e31f))
 * perf: engine up to 12 version ([7c430be](https://github.com/posthtml/posthtml-render/commit/7c430be))
 * fix: if tree contains empty string, close #58 ([401f5a6](https://github.com/posthtml/posthtml-render/commit/401f5a6)), closes [#58](https://github.com/posthtml/posthtml-render/issues/58)
 * test: if tree exists empty string, issue #58 ([3493d4f](https://github.com/posthtml/posthtml-render/commit/3493d4f)), closes [#58](https://github.com/posthtml/posthtml-render/issues/58)
