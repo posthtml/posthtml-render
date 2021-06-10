@@ -542,7 +542,7 @@ test('{Options} {quoteStyle} 0 - smart quote', t => {
   t.is(render(fixture, options), expected);
 });
 
-test.only('{QuoteStyle}', t => {
+test('{QuoteStyle} for width/height attrs in img', t => {
   const fixture = {
     tag: 'img',
     attrs: {
