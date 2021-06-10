@@ -279,6 +279,69 @@ test('{Tree} {With empty string}', t => {
   t.is(render(tree), html);
 });
 
+test('{Tree} {With tag false}', t => {
+  const tree = [
+    {
+      tag: false,
+      content: []
+    },
+    {
+      tag: 'script',
+      content: ['window.foo1 = \'foo\';', 'window.foo2 = \'foo\'']
+    },
+    '\\n            ',
+    {
+      tag: 'script',
+      attrs: {
+        src: './script-need-foo-variable.js'
+      }
+    },
+    '\\n            ',
+    {
+      tag: false,
+      content: []
+    },
+    {
+      tag: 'script',
+      content: ['window.bar1 = \'foo\';', 'window.bar2 = \'bar\'']
+    }
+  ];
+  const html = '<script>window.foo1 = \'foo\';window.foo2 = \'foo\'</script>\\n            <script src="./script-need-foo-variable.js"></script>\\n            <script>window.bar1 = \'foo\';window.bar2 = \'bar\'</script>';
+
+  t.is(render(tree), html);
+});
+
+test('{Tree} {With ?}', t => {
+  const tree = [
+    {
+      tag: false,
+      content: [
+        {
+          tag: false,
+          content: [
+            {
+              tag: 'title',
+              content: ['Title']
+            }
+          ]
+        },
+        {
+          tag: false,
+          content: [
+            {
+              tag: 'p',
+              content: ['Hi']
+            }
+          ]
+        }
+      ]
+    }
+  ];
+  const html = '<title>Title</title><p>Hi</p>';
+
+  t.is(render(tree), html);
+});
+
 test('{Options} {singleTag} Defaults', t => {
   const SINGLE_TAGS_LOWERCASE = [
     'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
@@ -477,4 +540,18 @@ test('{Options} {quoteStyle} 0 - smart quote', t => {
   const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
 
   t.is(render(fixture, options), expected);
+});
+
+test.only('{QuoteStyle}', t => {
+  const fixture = {
+    tag: 'img',
+    attrs: {
+      src: 'https://example.com/example.png',
+      width: 20,
+      height: 20
+    }
+  };
+  const expected = '<img src="https://example.com/example.png" width=\'20\' height=\'20\'>';
+
+  t.is(render(fixture), expected);
 });
