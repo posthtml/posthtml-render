@@ -547,8 +547,8 @@ test('{QuoteStyle} for width/height attrs in img', t => {
     tag: 'img',
     attrs: {
       src: 'https://example.com/example.png',
-      width: 20,
-      height: 20
+      width: '20',
+      height: '20'
     }
   };
   const expected = '<img src="https://example.com/example.png" width="20" height="20">';
