@@ -1,3 +1,4 @@
+// @ts-ignore
 import isJSON from 'is-json';
 import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
 import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, Options, quoteStyleEnum} from '../types/index.d';
