@@ -26,6 +26,9 @@
     "html",
     "xml"
   ],
+  "dependencies": {
+    "is-json": "^2.0.1"
+  },
   "devDependencies": {
     "@antfu/eslint-config-ts": "^0.6.4",
     "@commitlint/cli": "^12.1.1",
