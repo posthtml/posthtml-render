@@ -1,3 +1,4 @@
+import isJSON from 'is-json';
 import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
 import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, Options, quoteStyleEnum} from '../types/index.d';
 
@@ -182,13 +183,8 @@ function render(tree?: Node | Node[], options: Options = {}): string {
 
     for (const [key, value] of Object.entries(object)) {
       if (typeof value === 'string') {
-        let json;
-        try {
-          json = JSON.parse(value);
-        } catch {}
-
-        if (json) {
-          attr += ` ${key}='${value}'`;
+        if (isJSON(value)) {
+          attr += makeAttr(key, value);
         } else if (quoteAllAttributes || ATTRIBUTE_QUOTES_REQUIRED.test(value)) {
           let attrValue = value;
 
