@@ -1,5 +1,16 @@
+## <small>2.0.6 (2021-06-11)</small>
+
+* style: ignore ts error ([aaab81d](https://github.com/posthtml/posthtml-render/commit/aaab81d))
+* fix: incorrect detect json format ([c334ef2](https://github.com/posthtml/posthtml-render/commit/c334ef2))
+* fix: is-json not declare ([85b7bec](https://github.com/posthtml/posthtml-render/commit/85b7bec))
+* build: update depdev ([76c0752](https://github.com/posthtml/posthtml-render/commit/76c0752))
+* test: change to number with quote ([e2f6cb5](https://github.com/posthtml/posthtml-render/commit/e2f6cb5))
+
+
+
 ## <small>2.0.5 (2021-06-10)</small>
 
+* 2.0.5 ([efc4a41](https://github.com/posthtml/posthtml-render/commit/efc4a41))
 * test: for long test ([d019534](https://github.com/posthtml/posthtml-render/commit/d019534))
 * test: invalid in htmlnano travis ([69d666b](https://github.com/posthtml/posthtml-render/commit/69d666b))
 * test: more tests ([4dfa92e](https://github.com/posthtml/posthtml-render/commit/4dfa92e))
