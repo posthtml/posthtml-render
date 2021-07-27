@@ -1,5 +1,19 @@
+## 3.0.0 (2021-07-27)
+
+* style: after lint ([d3d9d8b](https://github.com/posthtml/posthtml-render/commit/d3d9d8b))
+* style: indent ([3d1fe36](https://github.com/posthtml/posthtml-render/commit/3d1fe36))
+* build: update dep dev ([332eef4](https://github.com/posthtml/posthtml-render/commit/332eef4))
+* docs: update usage ([d80591f](https://github.com/posthtml/posthtml-render/commit/d80591f))
+* refactor: export as not default render, close #63 ([f45d8ed](https://github.com/posthtml/posthtml-render/commit/f45d8ed)), closes [#63](https://github.com/posthtml/posthtml-render/issues/63)
+* perf: move types to index ([7431c0f](https://github.com/posthtml/posthtml-render/commit/7431c0f))
+* perf: remove trash ([fa85549](https://github.com/posthtml/posthtml-render/commit/fa85549))
+* fix: referenced incorrectly in package.json close #62 ([d0bd697](https://github.com/posthtml/posthtml-render/commit/d0bd697)), closes [#62](https://github.com/posthtml/posthtml-render/issues/62)
+
+
+
 ## <small>2.0.6 (2021-06-11)</small>
 
+* 2.0.6 ([aa66af1](https://github.com/posthtml/posthtml-render/commit/aa66af1))
 * style: ignore ts error ([aaab81d](https://github.com/posthtml/posthtml-render/commit/aaab81d))
 * fix: incorrect detect json format ([c334ef2](https://github.com/posthtml/posthtml-render/commit/c334ef2))
 * fix: is-json not declare ([85b7bec](https://github.com/posthtml/posthtml-render/commit/85b7bec))
