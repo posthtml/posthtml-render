@@ -18,30 +18,28 @@
 npm i -D posthtml-render
 ```
 
-> ℹ️ This module is also available for [bower](http://bower.io) and as an AMD, CommonJS and IIFE (global) module, uncompressed and compressed
-
 <h2 align="center">Usage</h2>
 
 ### `NodeJS`
 
 ```js
-const render = require('posthtml-render')
+import { render } from ''posthtml-render;
 
-const tree = []
+const tree = [];
 
-const node = {}
+const node = {};
 
-node.tag = 'ul'
-node.attrs = { class: 'list' }
+node.tag = 'ul';
+node.attrs = { class: 'list' };
 node.content = [
  'one',
  'two',
  'three'
-].map((content) => ({ tag: 'li', content }))
+].map((content) => ({ tag: 'li', content }));
 
-tree.push(node)
+tree.push(node);
 
-const html = render(tree, options)
+const html = render(tree, options);
 
 ```
 
@@ -51,32 +49,6 @@ const html = render(tree, options)
   <li>two</li>
   <li>three</li>
 </ul>
-```
-
-### `🌐 Browser`
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Title</title>
-  <script src="./node_modules/posthtml-render/lib/browser.min.js"></script>
-  <script >
-    const tree = {
-      tag: 'h1',
-      attrs: {
-        style: 'color: red;'
-      },
-      content: [ 'Title' ]
-    }
-
-    window.onload = function () {
-      document.body.innerHTML = render(tree)
-    }
-  </script>
-</head>
-<body></body>
-</html>
 ```
 
 <h2 align="center">Options</h2>
