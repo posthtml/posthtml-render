@@ -102,7 +102,7 @@ const defaultOptions = {
   quoteStyle: quoteStyleEnum.Double
 };
 
-function render(tree?: Node | Node[], options: Options = {}): string {
+export function render(tree?: Node | Node[], options: Options = {}): string {
   let st = SINGLE_TAGS;
 
   if (options.singleTags) {
@@ -294,5 +294,3 @@ function render(tree?: Node | Node[], options: Options = {}): string {
     return ` ${key}="${attrValue}"`;
   }
 }
-
-export default render;
