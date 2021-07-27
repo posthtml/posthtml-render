@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import test from 'ava';
 import render from '../src';
-import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, quoteStyleEnum} from '../types/index.d';
+import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, quoteStyleEnum} from '../src';
 import parser from 'posthtml-parser';
 import tree from './templates/parser';
 
