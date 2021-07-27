@@ -5,20 +5,20 @@ import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
 export enum quoteStyleEnum {
   Smart,
   Single,
-  Double
+  Double,
 }
 
 export enum closingSingleTagOptionEnum {
   tag = 'tag',
   slash = 'slash',
   default = 'default',
-  closeAs = 'closeAs'
+  closeAs = 'closeAs',
 }
 
 export enum closingSingleTagTypeEnum {
   tag = 'tag',
   slash = 'slash',
-  default = 'default'
+  default = 'default',
 }
 
 export type Node = NodeText | NodeTag & {
@@ -90,7 +90,7 @@ const SINGLE_TAGS: Array<string | RegExp> = [
   'param',
   'source',
   'track',
-  'wbr'
+  'wbr',
 ];
 
 const ATTRIBUTE_QUOTES_REQUIRED = /[\t\n\f\r "'`=<>]/;
@@ -99,7 +99,7 @@ const defaultOptions = {
   closingSingleTag: undefined,
   quoteAllAttributes: true,
   replaceQuote: true,
-  quoteStyle: quoteStyleEnum.Double
+  quoteStyle: quoteStyleEnum.Double,
 };
 
 export function render(tree?: Node | Node[], options: Options = {}): string {
@@ -112,7 +112,7 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
   options = {
     ...defaultOptions,
     ...options,
-    singleTags: st
+    singleTags: st,
   };
 
   const {
@@ -120,12 +120,12 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
     closingSingleTag,
     quoteAllAttributes,
     replaceQuote,
-    quoteStyle
+    quoteStyle,
   } = options;
 
   const singleRegExp: RegExp[] = singleTags
-    ?.filter((tag): tag is RegExp => tag instanceof RegExp) ??
-    [];
+    ?.filter((tag): tag is RegExp => tag instanceof RegExp)
+    ?? [];
 
   if (!Array.isArray(tree)) {
     if (!tree) {
@@ -143,11 +143,11 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
     for (const node of tree) {
       // Undefined, null, '', [], NaN
       if (
-        node === false ||
-        node === undefined ||
-        node === null ||
-        (typeof node === 'string' && node.length === 0) ||
-        Number.isNaN(node)
+        node === false
+        || node === undefined
+        || node === null
+        || (typeof node === 'string' && node.length === 0)
+        || Number.isNaN(node)
       ) {
         continue;
       }
@@ -194,7 +194,7 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
       const closeAs = {
         [closingSingleTagTypeEnum.tag]: `></${tag}>`,
         [closingSingleTagTypeEnum.slash]: ' />',
-        [closingSingleTagTypeEnum.default]: '>'
+        [closingSingleTagTypeEnum.default]: '>',
       };
 
       if (isSingleTag(tag)) {
@@ -208,9 +208,9 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
 
             break;
           case closingSingleTagOptionEnum.closeAs:
-            result += closeAs[node.closeAs ?
-              closingSingleTagTypeEnum[node.closeAs] :
-              closingSingleTagTypeEnum.default];
+            result += closeAs[node.closeAs
+              ? closingSingleTagTypeEnum[node.closeAs]
+              : closingSingleTagTypeEnum.default];
 
             break;
           default:
@@ -221,9 +221,9 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
           result += html(node.content);
         }
       } else if (closingSingleTag === closingSingleTagOptionEnum.closeAs && node.closeAs) {
-        const type = node.closeAs ?
-          closingSingleTagTypeEnum[node.closeAs] :
-          closingSingleTagTypeEnum.default;
+        const type = node.closeAs
+          ? closingSingleTagTypeEnum[node.closeAs]
+          : closingSingleTagTypeEnum.default;
         result += `${closeAs[type]}${html(node.content)}`;
       } else {
         result += `>${html(node.content)}</${tag}>`;

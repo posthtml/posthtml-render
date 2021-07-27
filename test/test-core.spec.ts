@@ -1,13 +1,13 @@
 import fs from 'fs';
 import path from 'path';
 import test from 'ava';
+import parser from 'posthtml-parser';
 import {
   closingSingleTagOptionEnum,
   closingSingleTagTypeEnum,
   quoteStyleEnum,
-  render
+  render,
 } from '../src';
-import parser from 'posthtml-parser';
 import tree from './templates/parser';
 
 const html = fs.readFileSync(path.resolve(__dirname, 'templates/render.html'), 'utf8');
@@ -56,8 +56,8 @@ test('{Attrs} {Empty}', t => {
 test('{Attrs} {Single}', t => {
   const fixture = {
     attrs: {
-      id: 'header'
-    }
+      id: 'header',
+    },
   };
   const expected = '<div id="header"></div>';
 
@@ -69,8 +69,8 @@ test('{Attrs} {Multiple}', t => {
     attrs: {
       id: 'header',
       style: 'color:red',
-      'data-id': 'header'
-    }
+      'data-id': 'header',
+    },
   };
   const expected = '<div id="header" style="color:red" data-id="header"></div>';
 
@@ -80,8 +80,8 @@ test('{Attrs} {Multiple}', t => {
 test('{Attrs} {Boolean} (true)', t => {
   const fixture = {
     attrs: {
-      disabled: true
-    }
+      disabled: true,
+    },
   };
   const expected = '<div disabled></div>';
 
@@ -91,8 +91,8 @@ test('{Attrs} {Boolean} (true)', t => {
 test('{Attrs} {Boolean} (false)', t => {
   const fixture = {
     attrs: {
-      disabled: false
-    }
+      disabled: false,
+    },
   };
   const expected = '<div></div>';
 
@@ -102,8 +102,8 @@ test('{Attrs} {Boolean} (false)', t => {
 test('{Attrs} {Number}', t => {
   const fixture = {
     attrs: {
-      val: 5
-    }
+      val: 5,
+    },
   };
   const expected = '<div val="5"></div>';
 
@@ -113,8 +113,8 @@ test('{Attrs} {Number}', t => {
 test('{Attrs} {String} (double quotes)', t => {
   const fixture = {
     attrs: {
-      onclick: 'alert("hello world")'
-    }
+      onclick: 'alert("hello world")',
+    },
   };
   const expected = '<div onclick="alert(&quot;hello world&quot;)"></div>';
 
@@ -124,8 +124,8 @@ test('{Attrs} {String} (double quotes)', t => {
 test('{Attrs} {String} (json)', t => {
   const fixture = {
     attrs: {
-      'x-data': JSON.stringify({a: 1})
-    }
+      'x-data': JSON.stringify({a: 1}),
+    },
   };
 
   const expected = '<div x-data=\'{"a":1}\'></div>';
@@ -162,9 +162,9 @@ test('{Content} {Array}', t => {
       [
         555,
         {tag: 'div', content: 666},
-        777
-      ]
-    ]
+        777,
+      ],
+    ],
   };
   const expected = '<div>555<div>666</div>777</div>';
 
@@ -176,9 +176,9 @@ test('{Content} {Array<before empty array content>}', t => {
     content: [
       [],
       [
-        {tag: 'style', content: 'body { color: red; }'}
-      ]
-    ]
+        {tag: 'style', content: 'body { color: red; }'},
+      ],
+    ],
   };
   const expected = '<div><style>body { color: red; }</style></div>';
 
@@ -191,11 +191,11 @@ test('{Content} {Nested}', t => {
       {
         content: [
           {
-            content: ['Test', {}]
-          }
-        ]
-      }
-    ]
+            content: ['Test', {}],
+          },
+        ],
+      },
+    ],
   };
   const expected = '<div><div><div>Test<div></div></div></div></div>';
 
@@ -226,10 +226,10 @@ test('{Tree} {Immutable}', t => {
         tag: false,
         content: [
           {tag: 'div'},
-          {tag: 'span', content: ['Text']}
-        ]
-      }
-    ]
+          {tag: 'span', content: ['Text']},
+        ],
+      },
+    ],
   }];
 
   const html1 = JSON.stringify(tree);
@@ -249,7 +249,7 @@ test('{Tree} {With empty string}', t => {
     {
       tag: 'html',
       attrs: {
-        lang: 'en'
+        lang: 'en',
       },
       content: [
         '',
@@ -260,23 +260,23 @@ test('{Tree} {With empty string}', t => {
             {
               tag: 'meta',
               attrs: {
-                charset: 'utf-8'
-              }
+                charset: 'utf-8',
+              },
             },
-            ''
-          ]
+            '',
+          ],
         },
         '',
         {
           tag: 'body',
           content: [
-            ' '
-          ]
+            ' ',
+          ],
         },
-        ''
-      ]
+        '',
+      ],
     },
-    ''
+    '',
   ];
   const html = '<!doctype html><html lang="en"><head><meta charset="utf-8"></head><body> </body></html>';
 
@@ -287,28 +287,28 @@ test('{Tree} {With tag false}', t => {
   const tree = [
     {
       tag: false,
-      content: []
+      content: [],
     },
     {
       tag: 'script',
-      content: ['window.foo1 = \'foo\';', 'window.foo2 = \'foo\'']
+      content: ['window.foo1 = \'foo\';', 'window.foo2 = \'foo\''],
     },
     '\\n            ',
     {
       tag: 'script',
       attrs: {
-        src: './script-need-foo-variable.js'
-      }
+        src: './script-need-foo-variable.js',
+      },
     },
     '\\n            ',
     {
       tag: false,
-      content: []
+      content: [],
     },
     {
       tag: 'script',
-      content: ['window.bar1 = \'foo\';', 'window.bar2 = \'bar\'']
-    }
+      content: ['window.bar1 = \'foo\';', 'window.bar2 = \'bar\''],
+    },
   ];
   const html = '<script>window.foo1 = \'foo\';window.foo2 = \'foo\'</script>\\n            <script src="./script-need-foo-variable.js"></script>\\n            <script>window.bar1 = \'foo\';window.bar2 = \'bar\'</script>';
 
@@ -325,21 +325,21 @@ test('{Tree} {With ?}', t => {
           content: [
             {
               tag: 'title',
-              content: ['Title']
-            }
-          ]
+              content: ['Title'],
+            },
+          ],
         },
         {
           tag: false,
           content: [
             {
               tag: 'p',
-              content: ['Hi']
-            }
-          ]
-        }
-      ]
-    }
+              content: ['Hi'],
+            },
+          ],
+        },
+      ],
+    },
   ];
   const html = '<title>Title</title><p>Hi</p>';
 
@@ -348,18 +348,18 @@ test('{Tree} {With ?}', t => {
 
 test('{Options} {singleTag} Defaults', t => {
   const SINGLE_TAGS_LOWERCASE = [
-    'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr'
+    'area', 'base', 'br', 'col', 'command', 'embed', 'hr', 'img', 'input', 'keygen', 'link', 'menuitem', 'meta', 'param', 'source', 'track', 'wbr',
   ];
 
   const SINGLE_TAGS_UPPERCASE = [
-    'IMG'
+    'IMG',
   ];
 
   const SINGLE_TAGS = SINGLE_TAGS_LOWERCASE.concat(SINGLE_TAGS_UPPERCASE);
 
   t.is(
     render(SINGLE_TAGS.map(tag => ({tag}))),
-    SINGLE_TAGS.map(tag => `<${tag}>`).join('')
+    SINGLE_TAGS.map(tag => `<${tag}>`).join(''),
   );
 });
 
@@ -431,12 +431,12 @@ test('{Options} {closingSingleTag} closeAs', t => {
       {
         content: [
           {
-            content: ['Test', {}]
-          }
-        ]
-      }
+            content: ['Test', {}],
+          },
+        ],
+      },
     ],
-    closeAs: closingSingleTagTypeEnum.default
+    closeAs: closingSingleTagTypeEnum.default,
   };
   const expected = '<div><div><div>Test<div></div></div></div>';
 
@@ -491,7 +491,7 @@ test('{Options} {quoteAllAttributes} Required Empty', t => {
 test('{Options} {quoteAllAttributes} Closing slash', t => {
   const options = {
     closingSingleTag: closingSingleTagOptionEnum.slash,
-    quoteAllAttributes: false
+    quoteAllAttributes: false,
   };
 
   // Note that <area href=foobar/> is incorrect as that is parsed as
@@ -552,8 +552,8 @@ test('{QuoteStyle} for width/height attrs in img', t => {
     attrs: {
       src: 'https://example.com/example.png',
       width: '20',
-      height: '20'
-    }
+      height: '20',
+    },
   };
   const expected = '<img src="https://example.com/example.png" width="20" height="20">';
 
