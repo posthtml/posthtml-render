@@ -1,10 +1,76 @@
 // @ts-expect-error
 import isJSON from 'is-json';
 import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
-import {closingSingleTagOptionEnum, closingSingleTagTypeEnum, Options, quoteStyleEnum} from '../types/index.d';
 
-type Node = NodeText | NodeTag & {
+export enum quoteStyleEnum {
+  Smart,
+  Single,
+  Double,
+}
+
+export enum closingSingleTagOptionEnum {
+  tag = 'tag',
+  slash = 'slash',
+  default = 'default',
+  closeAs = 'closeAs',
+}
+
+export enum closingSingleTagTypeEnum {
+  tag = 'tag',
+  slash = 'slash',
+  default = 'default',
+}
+
+export type Node = NodeText | NodeTag & {
   closeAs?: closingSingleTagTypeEnum;
+};
+
+export type Options = {
+  /**
+   * Custom single tags (selfClosing).
+   *
+   * @default []
+   */
+  singleTags?: Array<string | RegExp>;
+
+  /**
+   * Closing format for single tag.
+   *
+   * Formats:
+   *
+   * tag: `<br></br>`, slash: `<br />`, default: `<br>`
+   *
+   */
+  closingSingleTag?: closingSingleTagOptionEnum;
+
+  /**
+   * If all attributes should be quoted.
+   * Otherwise attributes will be unquoted when allowed.
+   *
+   * @default true
+   */
+  quoteAllAttributes?: boolean;
+
+  /**
+   * Replaces quotes in attribute values with `&quote;`.
+   *
+   * @default true
+   */
+  replaceQuote?: boolean;
+
+  /**
+   * Quote style
+   *
+   * 0 - Smart quotes
+   *   <img src="https://example.com/example.png" onload='testFunc("test")'>
+   * 1 - Single quotes
+   *   <img src='https://example.com/example.png' onload='testFunc("test")'>
+   * 2 - double quotes
+   *   <img src="https://example.com/example.png" onload="testFunc("test")">
+   *
+   * @default 2
+   */
+  quoteStyle?: quoteStyleEnum;
 };
 
 const SINGLE_TAGS: Array<string | RegExp> = [
@@ -24,7 +90,7 @@ const SINGLE_TAGS: Array<string | RegExp> = [
   'param',
   'source',
   'track',
-  'wbr'
+  'wbr',
 ];
 
 const ATTRIBUTE_QUOTES_REQUIRED = /[\t\n\f\r "'`=<>]/;
@@ -33,10 +99,10 @@ const defaultOptions = {
   closingSingleTag: undefined,
   quoteAllAttributes: true,
   replaceQuote: true,
-  quoteStyle: quoteStyleEnum.Double
+  quoteStyle: quoteStyleEnum.Double,
 };
 
-function render(tree?: Node | Node[], options: Options = {}): string {
+export function render(tree?: Node | Node[], options: Options = {}): string {
   let st = SINGLE_TAGS;
 
   if (options.singleTags) {
@@ -46,7 +112,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
   options = {
     ...defaultOptions,
     ...options,
-    singleTags: st
+    singleTags: st,
   };
 
   const {
@@ -54,12 +120,12 @@ function render(tree?: Node | Node[], options: Options = {}): string {
     closingSingleTag,
     quoteAllAttributes,
     replaceQuote,
-    quoteStyle
+    quoteStyle,
   } = options;
 
   const singleRegExp: RegExp[] = singleTags
-    ?.filter((tag): tag is RegExp => tag instanceof RegExp) ??
-    [];
+    ?.filter((tag): tag is RegExp => tag instanceof RegExp)
+    ?? [];
 
   if (!Array.isArray(tree)) {
     if (!tree) {
@@ -77,11 +143,11 @@ function render(tree?: Node | Node[], options: Options = {}): string {
     for (const node of tree) {
       // Undefined, null, '', [], NaN
       if (
-        node === false ||
-        node === undefined ||
-        node === null ||
-        (typeof node === 'string' && node.length === 0) ||
-        Number.isNaN(node)
+        node === false
+        || node === undefined
+        || node === null
+        || (typeof node === 'string' && node.length === 0)
+        || Number.isNaN(node)
       ) {
         continue;
       }
@@ -128,7 +194,7 @@ function render(tree?: Node | Node[], options: Options = {}): string {
       const closeAs = {
         [closingSingleTagTypeEnum.tag]: `></${tag}>`,
         [closingSingleTagTypeEnum.slash]: ' />',
-        [closingSingleTagTypeEnum.default]: '>'
+        [closingSingleTagTypeEnum.default]: '>',
       };
 
       if (isSingleTag(tag)) {
@@ -142,9 +208,9 @@ function render(tree?: Node | Node[], options: Options = {}): string {
 
             break;
           case closingSingleTagOptionEnum.closeAs:
-            result += closeAs[node.closeAs ?
-              closingSingleTagTypeEnum[node.closeAs] :
-              closingSingleTagTypeEnum.default];
+            result += closeAs[node.closeAs
+              ? closingSingleTagTypeEnum[node.closeAs]
+              : closingSingleTagTypeEnum.default];
 
             break;
           default:
@@ -155,9 +221,9 @@ function render(tree?: Node | Node[], options: Options = {}): string {
           result += html(node.content);
         }
       } else if (closingSingleTag === closingSingleTagOptionEnum.closeAs && node.closeAs) {
-        const type = node.closeAs ?
-          closingSingleTagTypeEnum[node.closeAs] :
-          closingSingleTagTypeEnum.default;
+        const type = node.closeAs
+          ? closingSingleTagTypeEnum[node.closeAs]
+          : closingSingleTagTypeEnum.default;
         result += `${closeAs[type]}${html(node.content)}`;
       } else {
         result += `>${html(node.content)}</${tag}>`;
@@ -228,5 +294,3 @@ function render(tree?: Node | Node[], options: Options = {}): string {
     return ` ${key}="${attrValue}"`;
   }
 }
-
-export default render;
