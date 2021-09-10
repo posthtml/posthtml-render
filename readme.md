@@ -23,7 +23,7 @@ npm i -D posthtml-render
 ### `NodeJS`
 
 ```js
-import { render } from ''posthtml-render;
+import { render } from 'posthtml-render';
 
 const tree = [];
 
