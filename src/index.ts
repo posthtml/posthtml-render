@@ -278,7 +278,7 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
   function makeAttr(key: string, attrValue: string | number | boolean, quoteStyle = 1): string {
     if (quoteStyle === 1) {
       // Single Quote
-      return ` ${key}='${attrValue}'`;
+      return makeSingleQuotedAttr(key, attrValue);
     }
 
     if (quoteStyle === 2) {
@@ -288,9 +288,19 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
 
     // Smart Quote
     if (typeof attrValue === 'string' && attrValue.includes('"')) {
-      return ` ${key}='${attrValue}'`;
+      return makeSingleQuotedAttr(key, attrValue);
     }
 
     return ` ${key}="${attrValue}"`;
+  }
+
+  function makeSingleQuotedAttr(key: string, attrValue: string | number | boolean): string {
+    // A `'` can't appear inside single quotes,
+    // so such values are double-quoted with `"` escaped instead.
+    if (typeof attrValue === 'string' && attrValue.includes('\'')) {
+      return ` ${key}="${attrValue.replace(/"/g, '&quot;')}"`;
+    }
+
+    return ` ${key}='${attrValue}'`;
   }
 }
