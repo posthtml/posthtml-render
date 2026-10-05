@@ -133,6 +133,18 @@ test('{Attrs} {String} (json)', t => {
   t.is(render(fixture), expected);
 });
 
+test('{Attrs} {String} (json with apostrophe)', t => {
+  const fixture = {
+    attrs: {
+      'x-data': '{"a":"it\'s"}',
+    },
+  };
+
+  const expected = '<div x-data="{&quot;a&quot;:&quot;it\'s&quot;}"></div>';
+
+  t.is(render(fixture), expected);
+});
+
 test('{Content} {String}', t => {
   const fixture = {content: 'Hello world!'};
   const expected = '<div>Hello world!</div>';
@@ -542,6 +554,24 @@ test('{Options} {quoteStyle} 0 - smart quote', t => {
 
   const fixture = {tag: 'img', attrs: {src: 'https://example.com/example.png', onload: 'testFunc("test")'}};
   const expected = '<img src="https://example.com/example.png" onload=\'testFunc("test")\'>';
+
+  t.is(render(fixture, options), expected);
+});
+
+test('{Options} {quoteStyle} 1 - single quote with apostrophe', t => {
+  const options = {quoteStyle: quoteStyleEnum.Single};
+
+  const fixture = {tag: 'img', attrs: {alt: 'it\'s'}};
+  const expected = '<img alt="it\'s">';
+
+  t.is(render(fixture, options), expected);
+});
+
+test('{Options} {quoteStyle} 0 - smart quote with apostrophe', t => {
+  const options = {replaceQuote: false, quoteStyle: quoteStyleEnum.Smart};
+
+  const fixture = {tag: 'img', attrs: {alt: '"it\'s"'}};
+  const expected = '<img alt="&quot;it\'s&quot;">';
 
   t.is(render(fixture, options), expected);
 });
