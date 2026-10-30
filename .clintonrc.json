@@ -1,5 +1,5 @@
 {
-  "ignores": [],
+  "ignores": ["AGENTS.md"],
   "rules": {
     "pkg-main": "off",
     "ava": "off",

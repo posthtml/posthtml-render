@@ -20,6 +20,8 @@ npm test
 
 `prepare` builds on install. `npm test` first runs the `pretest` clinton command, then XO and the AVA suite with coverage. Record pre-existing install/lint/test failures separately from a renderer behavior regression. Modernizing these tools is a separate scoped change and must not silently change the public runtime minimum.
 
+The current baseline has a Clinton `pkg-schema` failure resolving external SchemaStore references, reproduced on unmodified master `47e750b` with Node.js 12. This blocks the later functional checks. Keep that tooling failure distinct from changes to rendering behavior; do not disable the schema rule merely to hide it. The conventional uppercase `AGENTS.md` filename is exempted through Clinton's file ignore list.
+
 ## Files and contracts
 
 - `src/index.ts`: serializer, quoting, attribute rules, void tags and option enums.
