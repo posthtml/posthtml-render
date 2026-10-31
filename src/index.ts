@@ -1,6 +1,16 @@
-// @ts-expect-error
+// @ts-expect-error -- is-json does not provide declarations.
 import isJSON from 'is-json';
-import {Attributes, NodeText, NodeTag} from 'posthtml-parser';
+
+// Keep the serialized tree structural and independent of parser dependencies.
+type Attributes = Record<string, string | number | boolean>;
+type NodeText = string | number;
+type Position = {line: number; column: number};
+type NodeTag = {
+  tag?: string | boolean;
+  attrs?: Attributes;
+  content?: NodeText | Array<Node | Node[]>;
+  location?: {start: Position; end: Position};
+};
 
 export enum quoteStyleEnum {
   Smart,
@@ -52,7 +62,7 @@ export type Options = {
   quoteAllAttributes?: boolean;
 
   /**
-   * Replaces quotes in attribute values with `&quote;`.
+   * Replaces quotes in attribute values with `&quot;`.
    *
    * @default true
    */
@@ -137,7 +147,7 @@ export function render(tree?: Node | Node[], options: Options = {}): string {
 
   return html(tree);
 
-  function html(tree: Node[] | Node[][]) {
+  function html(tree: Array<Node | Node[] | false | null | undefined>) {
     let result = '';
 
     for (const node of tree) {

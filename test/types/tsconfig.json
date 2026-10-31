@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "strict": true,
+    "types": []
+  },
+  "include": ["consumer.ts", "consumer.mts"]
+}

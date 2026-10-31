@@ -1,39 +1,70 @@
-name: Actions Status
+name: build
+
 on:
+  push:
+    branches: [master]
   pull_request:
-    types: [opened, synchronize]
-    branches:
-      - master
-env:
-  CI: true
+    types: [opened, synchronize, reopened]
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  run:
-    name: Node ${{ matrix.node }} on ${{ matrix.os }}
-    runs-on: ${{ matrix.os }}
+  check:
+    name: Build and check (Node 24)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - name: Upload coverage
+        uses: actions/upload-artifact@v7.0.2
+        with:
+          name: coverage
+          path: coverage/lcov.info
+          if-no-files-found: error
+      - name: Pack the checked build
+        run: |
+          mkdir artifacts
+          npm pack --ignore-scripts --pack-destination artifacts
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: npm-package
+          path: artifacts/*.tgz
+          if-no-files-found: error
 
+  runtime:
+    name: Packed runtime Node ${{ matrix.node }}
+    needs: check
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        node: [12, 14, 16]
-        os: [ubuntu-latest]
-
+        node: ['12.0.0', '12', '14', '16', '18', '20', '22', '24', '26']
     steps:
-      - name: Clone repository
-        uses: actions/checkout@v2
-
-      - name: Set Node.js version
-        uses: actions/setup-node@v1
+      - uses: actions/checkout@v7.0.1
+      - name: Select the consumer runtime
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Install npm dependencies
-        run: npm ci
-
-      - name: Run tests
-        run: npm run test
-
-      - name: Run Coveralls
-        uses: coverallsapp/github-action@master
+      - name: Record the consumer executable
+        id: runtime-path
+        run: echo "node=$(node -p process.execPath)" >> "$GITHUB_OUTPUT"
+      - name: Use development Node for npm and TypeScript
+        uses: actions/setup-node@v7.1.0
         with:
-          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/download-artifact@v8.0.2
+        with:
+          name: npm-package
+          path: artifacts
+      - name: Run the complete suite and consumers against the tarball
+        run: npm run test:packed -- "artifacts/posthtml-render-$(node -p 'require("./package.json").version').tgz" --node "${{ steps.runtime-path.outputs.node }}"

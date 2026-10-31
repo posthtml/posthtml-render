@@ -1,4 +1,3 @@
-// @ts-nocheck
 const tree = ['<!DOCTYPE html>', '\n', {
   tag: 'html',
   attrs: {
@@ -181,4 +180,4 @@ const tree = ['<!DOCTYPE html>', '\n', {
   content: undefined,
 }, Number.NaN, [], '', null, false, undefined];
 
-export default tree;
+module.exports = tree;

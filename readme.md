@@ -1,225 +1,136 @@
-[![npm][npm]][npm-url]
-[![node]]()
-[![tests][tests]][tests-url]
-[![coverage][cover]][cover-url]
+# PostHTML Render
 
-<div align="center">
-  <a href="https://github.com/posthtml/posthtml">
-    <img width="200" height="200" alt="PostHTML"
-      src="http://posthtml.github.io/posthtml/logo.svg">
-  </a>
-  <h1>PostHTML Render</h1>
-  <p>Renders a PostHTML Tree to HTML/XML</p>
-</div>
+Serialize a [PostHTML](https://github.com/posthtml/posthtml) tree to HTML/XML.
 
-<h2 align="center">Install</h2>
+Requires Node.js 12 or newer. TypeScript declarations are included and checked
+with TypeScript 4.3 and the current compiler.
 
-```bash
-npm i -D posthtml-render
+## Install
+
+```sh
+npm install posthtml-render
 ```
 
-<h2 align="center">Usage</h2>
+## Usage
 
-### `NodeJS`
+### CommonJS
 
 ```js
-import { render } from 'posthtml-render';
+const {render} = require('posthtml-render');
 
-const tree = [];
+const tree = [{
+  tag: 'ul',
+  attrs: {class: 'list'},
+  content: ['one', 'two', 'three'].map(content => ({tag: 'li', content})),
+}];
 
-const node = {};
-
-node.tag = 'ul';
-node.attrs = { class: 'list' };
-node.content = [
- 'one',
- 'two',
- 'three'
-].map((content) => ({ tag: 'li', content }));
-
-tree.push(node);
-
-const html = render(tree, options);
-
+const html = render(tree);
+// <ul class="list"><li>one</li><li>two</li><li>three</li></ul>
 ```
 
-```html
-<ul class="list">
-  <li>one</li>
-  <li>two</li>
-  <li>three</li>
-</ul>
-```
-
-<h2 align="center">Options</h2>
-
-|Name|Type|Default|Description|
-|:--:|:--:|:-----:|:----------|
-|**[`singleTags`](#singletags)**|`{Array<String\|RegExp>}`|`[]`|Specify custom single tags (self closing)|
-|**[`closingSingleTag`](#closingSingleTag)**|`{String}`|[`>`](#default)|Specify the single tag closing format|
-|**[`quoteAllAttributes`](#quoteAllAttributes)**|`{Boolean}`|[`true`](#default)|Put double quotes around all tags, even when not necessary.|
-|**[`replaceQuote`](#replaceQuote)**|`{Boolean}`|[`true`](#default)|Replaces quotes in attribute values with `&quote;`.|
-|**[`quoteStyle`](#quoteStyle)**|`{0 or 1 or 2}`|[`2`](#default)|Specify the style of quote arround the attribute values|
-
-### `singleTags`
-
-Specify custom single tags (self closing)
-
-### `{String}`
+### ES modules
 
 ```js
-const render = require('posthtml-render')
+import renderer from 'posthtml-render';
 
-const tree = [ { tag: 'name' } ]
-const options = { singleTags: [ 'name' ] }
-
-const html = render(tree, options)
+const {render} = renderer;
+const html = render({tag: 'p', content: ['Hello!']});
+// <p>Hello!</p>
 ```
 
-**result.html**
-```html
-<name>
+Native named imports, such as `import {render} from 'posthtml-render'`, are also
+available on Node.js 14.13 and newer. Node.js versions before 12.17 require
+`--experimental-modules` for native ES modules.
+
+### TypeScript
+
+```ts
+import {render, quoteStyleEnum} from 'posthtml-render';
+import type {Node, Options} from 'posthtml-render';
+
+const tree: Node[] = [{tag: 'p', content: ['Hello!']}];
+const options: Options = {quoteStyle: quoteStyleEnum.Double};
+const html: string = render(tree, options);
 ```
 
-#### `{RegExp}`
+The declarations are self-contained; a standalone renderer consumer does not
+need to install the parser or its types.
+
+## Tree
+
+`render(tree, options?)` accepts a string, number, node object or array and returns
+a string. An omitted tree renders as an empty string.
+
+Nodes support `tag`, `attrs` and `content`. A missing tag defaults to `div`;
+`tag: false` unwraps the content. Content can contain text, numbers, nodes and
+nested arrays. Raw text, comments and directives are preserved without escaping.
+Boolean `true` attributes render without a value; `false` attributes are omitted.
+
+Rendering normalizes scalar node content into arrays in place.
+
+## Options
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `singleTags` | `[]` | Custom single-tag names or regular expressions. |
+| `closingSingleTag` | `'default'` | `'default'`, `'tag'`, `'slash'` or `'closeAs'`. |
+| `quoteAllAttributes` | `true` | Quote attribute values even when quotes are optional. |
+| `replaceQuote` | `true` | Replace double quotes in non-JSON string values with `&quot;`. |
+| `quoteStyle` | `2` | `0` for smart quotes, `1` for single quotes, `2` for double quotes. |
+
+### Single tags
+
+String names extend the built-in HTML void-tag list. Names are compared against
+the lowercased tag name, while the original case is preserved in the output.
 
 ```js
-const render = require('posthtml-render')
-
-const tree = [ { tag: '%=title%' } ]
-const options = { singleTags: [ /^%.*%$/ ] }
-
-const html = render(tree, options)
+render({tag: 'custom'}, {singleTags: ['custom']}); // <custom>
+render({tag: 'img'}, {closingSingleTag: 'tag'}); // <img></img>
+render({tag: 'img'}, {closingSingleTag: 'slash'}); // <img />
+render({tag: 'img'}); // <img>
 ```
 
-**result.html**
-```html
-<%=title%>
-```
-
-### `closingSingleTag`
-
-Specify the single tag closing format
-
-#### `Formats`
+When `singleTags` contains regular expressions, single-tag detection uses those
+expressions against the original tag name:
 
 ```js
-const render = require('posthtml-render')
-
-const tree = [ { tag: 'img' } ]
+render({tag: '%=title%'}, {singleTags: [/^%.*%$/]}); // <%=title%>
 ```
 
-##### `'tag'`
+With `closingSingleTag: 'closeAs'`, each node's `closeAs` field selects `'tag'`,
+`'slash'` or `'default'`. For TypeScript, use the exported
+`closingSingleTagOptionEnum` and `closingSingleTagTypeEnum` values.
 
 ```js
-const html = render(tree, { closingSingleTag: 'tag' })
+render({tag: 'custom', closeAs: 'slash'}, {closingSingleTag: 'closeAs'});
+// <custom />
 ```
 
-```html
-<custom></custom>
-```
-
-##### `'slash'`
+### Attribute quotes
 
 ```js
-const html = render(tree, { closingSingleTag: 'slash' })
+const tree = {tag: 'a', attrs: {href: '/about/'}};
+render(tree); // <a href="/about/"></a>
+render(tree, {quoteAllAttributes: false}); // <a href=/about/></a>
 ```
 
-```html
-<custom />
-```
+Values containing spaces or other characters that require quotes stay quoted.
+JSON object/array strings recognized by `is-json` use single quotes independently
+of `quoteStyle`.
 
-##### `'default' (Default)`
+`replaceQuote` runs before the quote style is selected. Set it to `false` to keep
+embedded double quotes when using single or smart quotes:
 
 ```js
-const html = render(tree)
+const tree = {tag: 'img', attrs: {onload: 'testFunc("test")'}};
+render(tree); // <img onload="testFunc(&quot;test&quot;)">
+render(tree, {replaceQuote: false, quoteStyle: 1});
+// <img onload='testFunc("test")'>
+render(tree, {replaceQuote: false, quoteStyle: 0});
+// <img onload='testFunc("test")'>
 ```
 
-```html
-<img>
-```
+## Development
 
-##### `'closeAs'`
-
-```js
-const tree = [ {
-  tag: 'custom',
-  closeAs: 'default' // Available types: `tag` | `slash` | `default`
-} ]
-const html = render(tree, { closingSingleTag: 'closeAs' })
-```
-
-```html
-<custom>
-```
-
-### `quoteAllAttributes`
-
-Specify if all attributes should be quoted.
-
-##### `true (Default)`
-
-```html
-<i src="index.js"></i>
-```
-
-##### `false`
-
-```html
-<i src=index.js></i>
-```
-
-### `replaceQuote`
-
-Replaces quotes in attribute values with `&quote;`.
-
-##### `true (Default)`
-
-```html
-<img src="<?php echo $foo[&quote;bar&quote;] ?>">
-```
-
-##### `false`
-
-```html
-<img src="<?php echo $foo["bar"] ?>">
-```
-
-### `quoteStyle`
-
-##### `2 (Default)`
-
-Attribute values are wrapped in double quotes:
-
-```html
-<img src="https://example.com/example.png" onload="testFunc("test")">
-```
-
-##### `1`
-
-Attribute values are wrapped in single quote:
-
-```html
-<img src='https://example.com/example.png' onload='testFunc("test")'>
-```
-
-##### `0`
-
-Quote style is based on attribute values (an alternative for `replaceQuote` option):
-
-```html
-<img src="https://example.com/example.png" onload='testFunc("test")'>
-```
-
-
-[npm]: https://img.shields.io/npm/v/posthtml-render.svg
-[npm-url]: https://npmjs.com/package/posthtml-render
-
-[node]: https://img.shields.io/node/v/posthtml-render.svg
-[node-url]: https://img.shields.io/node/v/posthtml-render.svg
-
-[tests]: http://img.shields.io/travis/posthtml/posthtml-render.svg
-[tests-url]: https://travis-ci.org/posthtml/posthtml-render
-
-[cover]: https://coveralls.io/repos/github/posthtml/posthtml-render/badge.svg
-[cover-url]: https://coveralls.io/github/posthtml/posthtml-render
+See [Contributing](.github/CONTRIBUTING.md) for development commands, compatibility
+checks and the release workflow.

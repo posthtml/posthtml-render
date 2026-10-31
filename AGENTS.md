@@ -6,27 +6,28 @@ This repository serializes PostHTML trees. Read `package.json`, `readme.md`, `sr
 
 For cross-package changes, also read `../posthtml/AGENTS.md` when available, or `https://github.com/posthtml/posthtml/blob/master/AGENTS.md`. The core, parser and renderer are separate Git repositories; do not mix their changes or releases.
 
-## Current toolchain
+## Commands and toolchain
 
-This package still uses its legacy AVA/XO/clinton and tsup toolchain. Its existing CI matrix is Node.js 12/14/16, with a published runtime minimum of Node.js 12. Use the existing CI environment to reproduce baseline toolchain failures; do not assume the modern core/parser scripts exist here.
-
-Commands from this repository's manifest:
+Read `.github/CONTRIBUTING.md`. Use Node.js 24 from `.nvmrc` for development. The published runtime minimum remains Node.js 12; development tools do not set it.
 
 ```sh
+nvm use
 npm ci
-npm run build
-npm test
+npm run check
 ```
 
-`prepare` builds on install. `npm test` first runs the `pretest` clinton command, then XO and the AVA suite with coverage. Record pre-existing install/lint/test failures separately from a renderer behavior regression. Modernizing these tools is a separate scoped change and must not silently change the public runtime minimum.
+`check` builds with `tsc`, lints, checks current/minimum TypeScript consumers, runs the suite with coverage, and tests CommonJS/native ESM loading. `npm test` rebuilds and collects coverage; `test:unit` uses the existing build. `prepare` builds on install, and `prepublishOnly` runs `check`.
 
-The current baseline has a Clinton `pkg-schema` failure resolving external SchemaStore references, reproduced on unmodified master `47e750b` with Node.js 12. This blocks the later functional checks. Keep that tooling failure distinct from changes to rendering behavior; do not disable the schema rule merely to hide it. The conventional uppercase `AGENTS.md` filename is exempted through Clinton's file ignore list.
+CI packs one checked build, then runs the complete synchronous suite against isolated production installs on Node.js 12.0/12/14/16/18/20/22/24/26. `npm run test:packed -- <renderer.tgz> --node /path/to/node` keeps npm and TypeScript on the development runtime while executing all JavaScript checks on the selected consumer runtime. Do not replace the full suite with an import smoke test.
 
 ## Files and contracts
 
 - `src/index.ts`: serializer, quoting, attribute rules, void tags and option enums.
-- `test/test-core.spec.ts` and `test/templates`: exact output expectations.
-- `ava.config.js`, `xo.config.js`, `.c8rc`: current test/lint/coverage configuration.
+- `test/suite.cjs` and `test/templates`: shared exact-output expectations.
+- `test/core.test.cjs`: native test registration; `test/installed.cjs`: synchronous execution on legacy runtimes.
+- `test/package.cjs`, `test/package.mjs`, `test/packed.cjs`: CJS/ESM and installed-package checks.
+- `test/types`: standalone CJS/ESM declarations and minimum TypeScript consumers.
+- `eslint.config.mjs`, `.c8rc`: lint and coverage configuration. Preserve 100% statements/functions/lines and at least 95% branches.
 - Built JavaScript and declarations are generated into ignored `dist/`.
 
 Preserve raw text/comment/directive strings, numeric content, nested arrays, boolean attributes, `tag: false` unwrapping and all single-tag closing modes. The renderer currently normalizes some node content in place; test observable behavior before changing this.
@@ -37,8 +38,8 @@ Custom single-tag string names are matched against a lowercased tag name. Test m
 
 ## Types, integration and releases
 
-Parser is currently a development dependency used for AST declarations, not a runtime parser dependency. Preserve that distinction. Updating to newer parser declarations may require a newer development compiler without requiring a higher renderer runtime minimum; verify the emitted JavaScript and actual runtime dependencies.
+Parser is a development-only round-trip fixture dependency. Version 0.9 is retained so that the same suite runs on Node.js 12; current parser integration is checked through core. Public renderer declarations use structural AST types and must compile in a standalone production consumer without parser installed. Keep those shapes compatible with current parser output; do not introduce a parser runtime dependency.
 
-For a behavior change, run renderer tests, build the package, then `npm pack --ignore-scripts`. From core, run `npm run test:packed -- <core.tgz> --render <render.tgz>` and add `--parser <parser.tgz>` for coordinated AST changes. Test parser-to-renderer round trips and all core processing modes with actual tarballs rather than `npm link`.
+After checks, build and pack with `npm pack --ignore-scripts --pack-destination artifacts`, then run the renderer's `test:packed`. From core, run `npm run test:packed -- <core.tgz> --render <render.tgz>` and add `--parser <parser.tgz>` for coordinated AST changes. Test parser-to-renderer round trips and all core processing modes with actual tarballs rather than `npm link`.
 
-Keep runtime compatibility explicit and test the supported minimum. Review `.d.ts` compatibility against the parser version consumed by core. A documentation-only change needs no npm release. When a renderer release is requested, release it before updating the core range, and verify the published package and tag before reporting completion.
+Keep runtime compatibility explicit and test the supported minimum. Check declarations on TypeScript 4.3.5 and the current compiler, as well as with the parser version consumed by core. A documentation-only change needs no npm release. Maintain `Unreleased` notes by hand. When a renderer release is requested, follow `.github/CONTRIBUTING.md`, release it before updating the core range, and verify the published package and tag before reporting completion.
