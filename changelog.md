@@ -1,3 +1,10 @@
+## Unreleased
+
+* Replace the legacy build, lint and test toolchain with TypeScript, ESLint and native Node.js tests; retain Node.js 12 runtime support.
+* Check the full suite and CJS/ESM consumers against a built npm tarball across the runtime matrix.
+* Make declarations self-contained, including mixed nested content arrays, and check TypeScript 4.3.5 and current consumers.
+* Update usage examples and contributor instructions; maintain release notes by hand without local Git hooks.
+
 ## 3.0.0 (2021-07-27)
 
 * style: after lint ([d3d9d8b](https://github.com/posthtml/posthtml-render/commit/d3d9d8b))
@@ -305,6 +312,5 @@
 * upd jscs config ([64b9f1a](https://github.com/posthtml/posthtml-render/commit/64b9f1a))
 * upd Readme & add License file ([6036ea9](https://github.com/posthtml/posthtml-render/commit/6036ea9))
 * feat(*): tests ([7ca52d5](https://github.com/posthtml/posthtml-render/commit/7ca52d5))
-
 
 

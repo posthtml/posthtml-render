@@ -1,4 +1,10 @@
 {
   "reporter": ["lcov", "text"],
-  "extension": [".js"]
+  "include": ["dist/**/*.js"],
+  "exclude-after-remap": false,
+  "check-coverage": true,
+  "statements": 100,
+  "functions": 100,
+  "lines": 100,
+  "branches": 95
 }
